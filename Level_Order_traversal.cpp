@@ -15,6 +15,7 @@ class Node {
 
 
 
+//this method prints output according to levels
 void level_traversal_2(Node *root){
     if(root == NULL)
         return;
@@ -49,6 +50,7 @@ void level_traversal_2(Node *root){
     }
 }
 
+//this method prints output in one line
 void level_traversal(Node *root){
     if(root == NULL)
         return;
