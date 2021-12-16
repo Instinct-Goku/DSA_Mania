@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+void possibleStrings(string s, int k, int l, int h, string res){
+    if(l == k){
+        cout<<res<<endl;
+        return;
+    }
+    
+    for(int i = 0;  i < h; i++){
+        permutation(s, k, l+1, h, res+s[i]);
+    }
+}
+
+int main() {
+    string s = "ab";
+    int h = s.length();
+    int k = 3;
+    possibleStrings(s, k, 0, h, "");
+}

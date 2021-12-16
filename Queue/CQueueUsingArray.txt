@@ -1,0 +1,69 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Queue {
+    public:
+      int FRONT;
+      int REAR;
+      int queue[50];
+      int size;
+        
+    Queue(int size) {
+        this->size = size;
+        FRONT = REAR = -1;
+    }
+    
+    bool isFull() {
+        return (REAR+1)%size == FRONT;
+    }
+    
+    bool isEmpty() {
+        return FRONT == -1;
+    }
+    
+    void enqueue(int val){
+        if(isFull())
+            cout<<"queue is full"<<endl;
+        else {
+            if(FRONT == -1){
+                FRONT = 0;
+            }
+                
+            REAR = (REAR+1)%size;
+            queue[REAR] = val;
+        }
+    }
+    
+    int dequeue() {
+        
+        if(isEmpty())
+            cout<<"queue is empty"<<endl;
+            
+        int res = queue[FRONT];
+        if(FRONT == REAR){
+            FRONT = REAR = -1;
+        }
+        else{
+            FRONT = (FRONT+1)%size;
+        }
+        return res;
+    }
+    
+    void display(){
+        for(int i = 0; i < size; i++)
+            cout<<queue[i]<<" ";
+            
+        cout<<endl;
+    }
+  
+};
+
+
+int main() {
+    Queue q1(5);
+    q1.enqueue(2);
+    q1.enqueue(3);
+    cout<<q1.dequeue()<<endl;
+    cout<<q1.dequeue()<<endl;
+    cout<<q1.dequeue()<<endl;
+}

@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+class person {
+    public:
+    int age; 
+    string name;
+    static int count;
+    
+    // person() {
+    //   cout<<"person is created"<<endl;
+    //   count++;
+    // }
+    
+    person(int age, string name){
+       // person();
+        this->age = age;
+        this->name = name;
+    }
+    
+    void walking() {
+        cout<<name<<" is walking"<<endl;
+    }
+    
+    void sleep() {
+        cout<<name<<" is sleeping"<<endl;
+    }
+    
+    void sleep(int t){
+        cout<<name<<" has sleeped for "<<t<<" hr"<<endl;
+    }
+    int getAge() {
+        return age;
+    }
+};
+
+int person::count = 0;
+
+
+class developer : public person { //base constructor as initializer list
+   public:
+      developer(int age, string name) : person(age, name) {
+         cout << "Constructor of derived class: "<< endl;
+      }
+};
+
+
+int main() {
+    //person p1; 
+    person p2(18, "android");
+    cout<<"constructor called: "<<person::count<<" times"<<endl;
+    // p1.name = "goku";
+    // p1.age = 25;
+    // p1.walking();
+    p2.sleep(5);
+    // int age = p1.getAge();
+    // cout<<age;
+    developer d1(24, "tien");
+    d1.walking();
+    
+}

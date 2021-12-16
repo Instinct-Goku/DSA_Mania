@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+long long sqrtInt(int n) {
+	int s = 0, e = n;
+	long long mid = (s+e)/2;
+
+	long long ans = -1;
+
+	while(s <= e) {
+		long long sqr = mid*mid;
+
+		if(sqr == n)
+			return mid;
+		else if(sqr > n)
+			e = mid-1;
+		else{
+			ans = mid;
+			s = mid+1;
+		}
+
+		mid = (s+e)/2;
+	}
+	return ans;
+}
+
+double getPrecision(int decCount, int sqrtInt, int n) {
+	double ans = sqrtInt;
+	double factor = 1;
+	for(int i = 0; i < decCount; i++){
+		factor = factor/10;
+		for(double j = ans; j*j <=n; j = j + factor){
+			ans = j;
+		}
+	}
+	return ans;
+}
+
+int main() {
+    int Int = sqrtInt(37);
+    cout<<getPrecision(5, Int, 37);
+}
+

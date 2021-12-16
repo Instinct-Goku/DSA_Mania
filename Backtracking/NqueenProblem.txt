@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+bool isSafe(int (*board)[4], int row, int col){
+    int n = 4;
+    for(int i = 0; i < n; i++){
+        if(board[row][i] == 1 || board[i][col])
+            return false;
+        }
+        
+        for(int i = row, j = col; i >= 0 &&j >= 0; i--,j--){
+            if(board[i][j] == 1)
+                return false;
+        }
+        
+        for(int i = row, j = col; i <= n && j >= 0; i++, j--) {
+            if(board[i][j] == 1)
+                return false;
+        }
+    
+}
+
+
+bool nqueen(int board[][4], int n,int row){
+    if(row == n)
+        return true;
+        
+    for(int col = 0; col < n; col++) {
+        if(isSafe(board, row, col)){
+            board[row][col] = 1;
+            if(nqueen(board, n, row+1))
+                return true;
+            
+            board[row][col] = 0;
+        }
+    }
+    return false;
+}
+
+void display(int board[][4], int n) {
+    for(int row = 0; row < n; row++) {
+    for(int col = 0; col < n; col++) {
+        cout<<board[row][col]<<" ";
+    }
+    cout<<endl;
+    }
+}
+
+int main() {
+    int board[4][4] = {{0,0,0,0},
+                    {0,0,0,0},
+                    {0,0,0,0},
+                    {0,0,0,0}};
+                    
+    int n = 4;
+    if(nqueen(board, n, 0))
+        display(board, n);
+    else
+        cout<<"No Solution";
+}

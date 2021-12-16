@@ -1,0 +1,72 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node* next;
+    node* random;
+    
+    node(int data){
+        this->data = data;
+        next = random = NULL;
+    }
+};
+
+
+class LinkList {
+    public:
+    node *head;
+    node *cur;
+    
+    LinkList() {
+        head = NULL;
+        cur = NULL;
+    }
+    
+    void push(int val){
+        node *n = new node(val);
+        if(head == NULL){
+            head = n;
+            cur = head;
+        }
+        else{
+            cur->next = n;
+            cur = n;
+        }
+    }
+    
+    
+    void display() {
+        node* p = this->head;
+        while(p != NULL){
+        cout<<p->data<<" ";
+        p = p->next;
+        }
+    }
+    
+    void displayRandom(){
+        node *t = this->head;
+        while(t != NULL){
+            cout<<t->random->data<<" ";
+            t = t->next;
+        }
+    }
+
+};
+
+
+int main() {
+    LinkList ll;
+    ll.push(1);
+    ll.push(2);
+    ll.push(3);
+    ll.push(4);
+    ll.head->random = ll.head->next->next;
+    ll.head->next->random = ll.head;
+    ll.head->next->next->random = ll.head->next->next;
+    ll.head->next->next->next->random = ll.head->next;
+    ll.display();
+    cout<<endl;
+    ll.displayRandom();
+}

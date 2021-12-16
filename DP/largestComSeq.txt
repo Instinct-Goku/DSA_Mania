@@ -1,0 +1,30 @@
+// Online C++ compiler to run C++ program online
+#include <bits/stdc++.h>
+using namespace std;
+
+int largeSub(char a[], char b[], int na, int nb) {
+    int L[na+1][nb+1];
+    for (int i = 0; i <= na; i++) 
+    { 
+        for (int j = 0; j <= nb; j++) 
+        { 
+        if (i == 0 || j == 0) 
+            L[i][j] = 0; 
+      
+        else if (a[i - 1] == b[j - 1]) 
+            L[i][j] = L[i - 1][j - 1] + 1; 
+      
+        else
+            L[i][j] = max(L[i - 1][j], L[i][j - 1]); 
+        } 
+    } 
+    return L[na][nb];
+}
+
+
+int main() {
+    char a[] = "abc";
+    char b[] = "def";
+    cout<<largeSub(a,b,strlen(a),strlen(b));
+    return 0;
+}

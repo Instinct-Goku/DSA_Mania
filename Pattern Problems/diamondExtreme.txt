@@ -1,0 +1,85 @@
+#include<bits/stdc++.h>
+using namespace std;
+char bac = 92;
+
+void printInitial(int s) {
+    int k = s-1;
+    while(k--){
+        cout<<"e";
+    }
+    cout<<"/"<<bac;
+    int z = s-1;
+    while(z--){
+        cout<<"e";
+    }
+    cout<<endl;
+  }
+
+  void printEnd(int s) {
+    int k = s-1;
+    while(k--){
+        cout<<"e";
+    }
+    cout<<bac<<"/";
+    int z = s-1;
+    while(z--){
+        cout<<"e";
+    }
+    cout<<endl;
+  }
+
+void diamond(int s,int space) {
+    int iter = (s-1)*2;
+    if(s == 1){
+        return;
+    }
+  
+    diamond(s-1,space+1);
+
+    int st = space;
+    while(st--){
+        cout<<"e";
+    }
+    cout<<"/";
+    for(int i = 0; i < iter; i++){
+        cout<<"o";
+    }
+    cout<<bac;
+    int kt = space;
+    while(kt--){
+        cout<<"e";
+    }
+    cout<<endl;
+}
+
+
+void revDiamond(int s, int space) {
+int iter = (s-1)*2;
+    if(s == 1){
+        return;
+    }
+
+ int st = space;
+    while(st--){
+        cout<<"e";
+    }
+    cout<<bac;
+    for(int i = 0; i < iter; i++){
+        cout<<"o";
+    }
+    cout<<"/";
+    int kt = space;
+    while(kt--){
+        cout<<"e";
+    }
+    cout<<endl;
+
+    revDiamond(s-1,space+1);
+}
+  int main() {
+    printInitial(4);
+    diamond(4,0);
+    revDiamond(4,0);
+    printEnd(4);
+  }
+

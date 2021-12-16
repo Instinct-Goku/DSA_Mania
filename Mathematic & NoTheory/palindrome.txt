@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int palindrome(int n){
+    int ans = n;
+    int temp = 0;
+    while(n != 0){
+        temp += (n%10);
+        temp = temp*10;
+        n = n/10;
+    }
+    if (temp/10 == ans)
+        return 1;
+    else 
+        return 0;
+}
+
+int Spalindrome(string s){
+    int flag = 1;
+    int size = s.length();
+    for(int i = 0; flag && i < size/2; i++){
+        if(s[i] == s[size - i - 1])
+            flag = 1;
+        else
+            flag = 0;
+    }
+    return flag;
+}
+
+
+int main() {
+    int n = 151;
+    if(palindrome(n))
+        cout<<"palindrome"<<endl;
+    else 
+        cout<<"Not a palindrome"<<endl;
+        
+    if(Spalindrome("abas"))
+        cout<<"Spalindrome"<<endl;
+    else 
+        cout<<"Not a Spalindrome"<<endl;
+  
+}

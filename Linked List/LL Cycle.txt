@@ -1,0 +1,126 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node* next;
+    
+    node(int data){
+        this->data = data;
+    }
+};
+
+
+class LinkList {
+    public:
+    node *head;
+    node *cur;
+    node *meet;
+    
+    LinkList() {
+        head = NULL;
+        cur = NULL;
+        meet = NULL;
+    }
+    
+    void push(int val){
+        node *n = new node(val);
+        if(head == NULL){
+            head = n;
+            cur = head;
+        }
+        else{
+            cur->next = n;
+            cur = n;
+        }
+    }
+    
+    
+    void display() {
+        node* p = this->head;
+        while(p != NULL){
+        cout<<p->data<<" ";
+        p = p->next;
+        }
+    }
+    
+    void cycle(int pos){
+        node *p = this->head;
+        int i = 1;
+        while(i != pos){
+            p = p->next;
+            i++;
+        }
+        cur->next = p;
+    }
+    
+    void detectNode(){
+        if(meet == NULL)
+            cout<<"No cycle present"<<endl;
+        else{
+        node *start = this->head;
+        while(start != NULL){
+            start = start->next;
+            meet = meet->next;
+            if(start == meet){
+                cout<<start->data<<endl;
+                break;
+            }
+        }
+        }
+    }
+    
+    // void removeCycle(){
+    //     node *start = this->head;
+    //     node *prev = meet;
+    //     meet = meet->next;
+    //     while(meet != start){
+    //         start = start->next;
+    //         meet = meet->next;
+    //         prev = prev->next;
+    //         if(start == meet){
+    //           prev->next = NULL;
+    //         }
+    //     }
+    //     prev->next = NULL;
+    //     cout<<"cycle removed"<<endl;
+    // }
+    
+    void isCycle() {
+        if(this->head == NULL)
+            cout<<"no element";
+        else{
+        node *slow = head;
+        node *fast = head;
+        int flag = 0;
+        while(fast && fast->next){
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow == fast){
+                cout<<"Cycle detected"<<endl;
+                flag = 1;
+                meet = slow;
+                break;
+            }
+        }
+        if(flag == 0)
+            cout<<"No Cycle detected"<<endl;
+        }
+    }
+};
+
+
+int main() {
+    LinkList ll;
+    ll.push(15);
+    ll.push(25);
+    ll.push(30);
+    ll.push(45);
+    ll.cycle(3);
+    ll.isCycle();
+    cout<<endl;
+    ll.detectNode();
+    ll.removeCycle();
+    ll.isCycle();
+}

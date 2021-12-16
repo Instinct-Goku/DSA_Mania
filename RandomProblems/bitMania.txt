@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> binaryNum;
+
+void decToBin(int n){
+    int t = n;
+    
+    while(t > 0){
+        binaryNum.push_back(t%2);
+        t = t/2;
+    }
+}
+
+int binTodec(int *a, int n) {
+    int decimal = 0;
+    
+    int t = n;
+    while(t--){
+        decimal = decimal*2+a[t];
+    }
+    return decimal;
+}
+
+int main()
+{
+   decToBin(13);
+   int size = binaryNum.size();
+   int exor[size];
+   exor[0] = binaryNum[0]^1;
+   for(int i = 0; i < size-1; i++){
+       exor[i+1] = binaryNum[i]^binaryNum[i+1];
+   }
+ 
+   int res = binTodec(exor, size);
+   
+   cout<<res;
+}

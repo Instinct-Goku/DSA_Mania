@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+#define N 4
+using namespace std;
+
+int sum(int a[N][N]){
+    int sum = 0;
+    for(int i = 0; i < N; i++){
+        sum += a[i][i] + a[i][N-i-1];
+    }
+    if(N&1)
+        return sum-a[N/2][N/2];
+    
+    return sum;
+}
+
+
+int main() {
+    int a[N][N] = {{ 1, 2, 3, 4 }, 
+                    { 5, 6, 7, 8 },
+                    { 1, 2, 3, 4 }, 
+                    { 5, 6, 7, 8 }};
+                
+    cout<<sum(a);
+}
+
+

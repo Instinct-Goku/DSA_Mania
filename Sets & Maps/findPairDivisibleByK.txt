@@ -1,0 +1,31 @@
+// Online C++ compiler to run C++ program online
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int pairDiv(int *a, int k , int n) {
+    vector<int> v(k,0);
+    
+    for(int i = 0; i < n; i++)
+        v[a[i]%k]++;
+        
+        
+    int count = 0;
+    count = v[0] * (v[0] - 1) / 2;
+    
+    for (int i = 1; i <= k / 2 && i != (k - i); i++)
+        count += v[i] * v[k - i];
+    
+    if (k % 2 == 0)
+        count += (v[k / 2] * (v[k / 2] - 1) / 2);
+        
+    return count;
+}
+
+int main() {
+ 
+    int a[] = {5, 9, 36, 74, 52, 31, 42};
+    int k = 3;
+    int n = sizeof(a)/sizeof(a[0]);
+    cout<<pairDiv(a, k, n);
+}

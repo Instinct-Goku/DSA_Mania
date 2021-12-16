@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void swap(int *a, int *b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void insert(vector<int> &v, int val) {
+    v.push_back(val);
+    int i = v.size() - 1;
+    int parent = 0;
+    while(i > 1){
+        parent = i/2;
+        if(v[parent] < v[i]){
+            swap(v[parent], v[i]);
+            i = parent;
+        }
+        else
+            break;
+    }
+}
+
+
+int main() {
+    vector<int> v{0,40,30,35,20,10,25,5};
+    insert(v, 60);
+    for(int i = 1; i < v.size(); i++)
+        cout<<v[i]<<" ";
+}

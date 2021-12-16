@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int compliment(int n) {
+	int mask = 0,ans = 0;
+	int m = n;
+	while(m) {
+		mask = (mask<<1) | 1;
+		m = m>>1;
+	}
+
+	return (~n)&mask;
+}
+
+
+int main() {
+	cout<<compliment(7);
+}
+
+//1010(10) => 0101(5)

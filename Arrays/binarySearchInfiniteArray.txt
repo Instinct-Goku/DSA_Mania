@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int binarySearch(int *a, int l, int h, int key) {
+    while(l <= h){
+        int mid = (l+h)/2;
+        if(a[mid] == key)
+            return mid;
+        
+        if(key < a[mid])
+            h = mid-1;
+        else
+            l = mid+1;
+    }
+    return -1;
+}
+
+int bSearch(int *a,int key){
+    int l = 0;
+    int h = 1;
+    int val = a[h];
+    while(val < key){
+        l = h;
+        h = h*2;
+        val = a[h];
+    }
+    if(key >= a[l] && key <= a[h])
+            return binarySearch(a, l, h, key);
+            
+    return -1;
+}
+
+int main() {
+    int arr[] = {3, 5, 7, 9, 10, 90, 100, 130, 140, 160, 170};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    cout<<bSearch(arr, 140);
+}

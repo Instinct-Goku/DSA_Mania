@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Stack {
+    public:
+    int top;
+    vector<int> v;
+    int size;
+    
+    Stack() {
+        top = -1;
+        size = 0;
+    }
+    
+    void push(int data){
+        top++;
+        v.push_back(data);
+        size++;
+    }
+    
+    void pop(){
+        top--;
+        size--;
+    }
+    
+    bool isEmpty(){
+        if(top == -1) {cout<<"true"<<endl; return true;} 
+        else {cout<<"false"<<endl; return false;}
+    }
+    
+    void display(){
+        int i = size;
+        while(i--){
+            cout<<v[i]<<" ";
+        }
+        cout<<endl;
+    }
+};
+
+
+int main() {
+    Stack s;
+    s.isEmpty();
+}

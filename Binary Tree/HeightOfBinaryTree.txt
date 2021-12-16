@@ -1,0 +1,77 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node {
+    public:
+    int data;
+    node *left, *right;
+    
+    node(int data){
+        this->data = data;
+    }
+};
+
+
+node *createTree() {
+    node *root = NULL;
+    int data;
+    
+    cin>>data;
+    root = new node(data);
+    
+    if(data == -1)
+        return NULL;
+    
+    cout<<"enter left data for "<<root->data<<": ";
+    root->left = createTree();
+    
+    cout<<"enter right data for "<<root->data<<": ";
+    root->right = createTree();
+    
+    return root;
+}
+
+void inOrder(node *root) {
+    if(root == NULL)
+        return;
+        
+    inOrder(root->left);
+    cout<<root->data<<" ";
+    inOrder(root->right);
+}
+
+void PreOrder(node *root) {
+    if(root == NULL)
+        return;
+    
+    cout<<root->data<<" ";    
+    inOrder(root->left);
+    inOrder(root->right);
+}
+
+void PostOrder(node *root) {
+    if(root == NULL)
+        return;
+        
+    inOrder(root->left);
+    inOrder(root->right);
+    cout<<root->data<<" ";
+}
+
+
+int height(node *root){
+    if(root == NULL)
+        return 0;
+        
+    return max(height(root->left), height(root->right)) + 1;
+}
+
+int main() {
+    cout<<"enter data for root: ";
+    node *root = createTree();
+    
+    inOrder(root);
+    cout<<endl;
+    
+    cout<<height(root);
+}

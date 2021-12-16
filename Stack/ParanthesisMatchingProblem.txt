@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isOpen(char a){
+    return a == '(' || a == '{' || a == '[';
+}
+
+
+bool isClose(char a){
+    return a == '}' || a == ')' || a == ']';
+}
+
+bool isMatch(char a, char b) {
+    return (a == '(' && b == ')') ||
+    (a == '{' && b == '}') ||
+    (a == '[' && b == ']');
+}
+
+bool isValid(string l) {
+    stack<int> s;
+        
+    for(int i = 0; i < l.length(); i++){
+        if(isOpen(l[i]))
+            s.push(l[i]);
+        else{
+            if(s.empty())
+                return false;
+            else if(!isMatch(s.top(), l[i]))
+                return false;
+            else {
+                s.pop();
+            }
+        }
+    }
+    if(s.empty())
+    return true;
+    else return false;
+}
+
+int main() {
+    string l = "()[{}";
+    if(isValid(l))
+        cout<<"valid"<<endl;
+    else
+        cout<<"Invalid"<<endl;
+}

@@ -1,0 +1,209 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node {
+    public:
+    int data;
+    node *left, *right;
+    
+    node(int data){
+        this->data = data;
+    }
+};
+
+
+node *createTree() {
+    node *root = NULL;
+    int data;
+    
+    cin>>data;
+    root = new node(data);
+    
+    if(data == -1)
+        return NULL;
+    
+    cout<<"enter left data for "<<root->data<<": ";
+    root->left = createTree();
+    
+    cout<<"enter right data for "<<root->data<<": ";
+    root->right = createTree();
+    
+    return root;
+}
+
+void inOrder(node *root) {
+    if(root == NULL)
+        return;
+        
+    inOrder(root->left);
+    cout<<root->data<<" ";
+    inOrder(root->right);
+}
+
+void PreOrder(node *root) {
+    if(root == NULL)
+        return;
+    
+    cout<<root->data<<" ";    
+    inOrder(root->left);
+    inOrder(root->right);
+}
+
+void PostOrder(node *root) {
+    if(root == NULL)
+        return;
+        
+    inOrder(root->left);
+    inOrder(root->right);
+    cout<<root->data<<" ";
+}
+
+
+int height(node *root){
+    if(root == NULL)
+        return 0;
+        
+    return max(height(root->left), height(root->right)) + 1;
+}
+
+int size(node *root) {
+     if(root == NULL)
+        return 0;
+        
+    return size(root->left) + size(root->right) + 1;
+}
+
+
+int max(int a, int b, int c) {
+    if(a > b && a > c)
+        return a;
+    else if(b > a && b > c)
+        return b;
+    else 
+        return c;
+}
+
+int max_node(node *root) {
+    if(root == NULL)
+        return INT_MIN;
+        
+    return max(max_node(root->left), max_node(root->right), root->data);
+}
+
+
+
+void levelTraversal(node *root) {
+    if(root == NULL)
+        return;
+        
+    queue<node> q;
+    node *t = new node(-1);
+    q.push(*root);
+    q.push(*t);
+
+    while(!q.empty()) {
+        node* cur = &q.front();
+        q.pop();
+        if(cur->data == -1) {
+            if(q.empty())
+                return;
+            q.push(*t);
+            cout<<endl;
+            
+        }
+        else{
+        cout<<cur->data<<" ";
+        
+        if(cur->left != NULL)
+            q.push(*cur->left);
+            
+        if(cur->right != NULL) 
+            q.push(*cur->right);
+        }
+        
+        
+    }
+    
+}
+
+
+void leftSideView(node *root) {
+     if(root == NULL)
+        return;
+
+    queue<node> q;
+
+    q.push(*root);
+
+    while(!q.empty()){
+        int n = q.size();
+
+        for(int i = 0; i < n; i++){
+            node *cur = &q.front();
+            q.pop();
+
+            if(i == 0)
+                cout<<cur->data<<endl;
+
+            if(cur->left != NULL)
+                q.push(*cur->left);
+        
+            if(cur->right != NULL)
+                q.push(*cur->right);
+        }
+    }
+
+}
+
+
+void rightSideView(node *root) {
+     if(root == NULL)
+        return;
+
+    queue<node> q;
+
+    q.push(*root);
+
+    while(!q.empty()){
+        int n = q.size();
+
+        for(int i = 0; i < n; i++){
+            node *cur = &q.front();
+            q.pop();
+
+            if(i == 0)
+                cout<<cur->data<<endl;
+
+            if(cur->right != NULL)
+                q.push(*cur->right);
+            
+            if(cur->left != NULL)
+                q.push(*cur->left);
+        
+            
+        }
+    }
+
+}
+
+
+int main() {
+    cout<<"enter data for root: ";
+    node *root = createTree();
+    
+    inOrder(root);
+    cout<<endl;
+    
+    cout<<"height: "<<height(root)<<endl;
+    cout<<"size: "<<size(root)<<endl;
+    
+    cout<<"max_node: "<<max_node(root)<<endl;
+    cout<<"levelTraversal"<<endl;
+    levelTraversal(root);
+    cout<<endl;
+    cout<<"leftSideView:"<<endl;
+    leftSideView(root);
+    cout<<endl;
+    cout<<"rightSideView:"<<endl;
+    rightSideView(root);
+}

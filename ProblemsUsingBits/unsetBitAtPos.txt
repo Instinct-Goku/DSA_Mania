@@ -1,0 +1,17 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+
+int main() {
+    // Write C++ code here
+    int  a = 6, pos = 1;
+    
+    a &= (~(1 << pos));
+    cout<<a;
+
+    return 0;
+}
+
+output: 
+
+6 = 110 //unset bit at position 1
+4 = 100 // i.e 110 -> 100

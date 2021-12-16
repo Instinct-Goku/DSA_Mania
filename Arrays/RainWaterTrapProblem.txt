@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int rainWater(int wall[], int n){
+    int left[n], right[n];
+    int maxWall = 0; 
+    for(int i = 0; i<n; i++){
+        maxWall =  max(wall[i], maxWall);
+        left[i] = maxWall;
+    }
+    maxWall = 0;
+    for(int i = n-1; i>=0; i--){
+        maxWall =  max(wall[i], maxWall);
+        right[i] = maxWall;
+    }
+    int res = 0;
+    for(int i = 0; i < n; i++){
+        res += min(left[i], right[i]) - wall[i];
+    }
+    return res;
+}
+
+int main() {
+    int wall[] = {3, 0, 2, 0, 4};
+    int n = sizeof(wall)/sizeof(wall[0]);
+    cout<<rainWater(wall, n);
+}

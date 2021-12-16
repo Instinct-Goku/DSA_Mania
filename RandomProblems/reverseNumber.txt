@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int reverse(int n) {
+	int ans = 0;
+	while(n) {
+		int d = n%10;
+		ans = ans*10 + d;
+		n = n/10;
+	}
+	return ans;
+}
+
+
+int main() {
+	cout<<reverse(1235);
+}

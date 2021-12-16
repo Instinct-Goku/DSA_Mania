@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int coinsNeeded (int amt, int coins[],int n, int *dp) {
+    if (amt == 0){
+        dp[amt] = 0;
+        return 0;
+    }
+     
+    if (dp[amt] != -1)
+        return dp[amt];
+    
+    int ans = INT_MAX, sa;
+    for(int i = 0; i < n; i++) {
+        if(amt - coins[i] >= 0){
+            sa = coinsNeeded(amt - coins[i], coins, n, dp);
+        }
+        if(sa != INT_MAX)
+            dp[amt] = min(ans, sa + 1);
+    }
+    
+    return dp[amt];
+}
+
+int main() {
+    int coins[] = {1, 2, 5, 10}, amt = 50,n = 4, dp[100];
+    for(int i = 0; i < 100; i++){
+        dp[i] = -1;
+    }
+    cout<<coinsNeeded(amt, coins, n, dp)<<endl;
+  
+    return 0;
+}

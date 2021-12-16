@@ -1,0 +1,134 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+    char data;
+    node* next;
+    
+    node(int data){
+        this->data = data;
+    }
+};
+
+
+class LinkList {
+    public:
+    node *head;
+    node *cur;
+    node *mid;
+    node *last;
+    
+    LinkList() {
+        head = NULL;
+        cur = NULL;
+        mid = NULL;
+        last = NULL;
+    }
+    
+    void push(int val){
+        node *n = new node(val);
+        if(head == NULL){
+            head = n;
+            cur = head;
+        }
+        else{
+            cur->next = n;
+            cur = n;
+        }
+    }
+    
+    void insert(int val, int pos) {
+    node *p = this->head;
+    node *t = new node(val);
+    if(pos == 0) {
+        t->next = this->head->next;
+        this->head = t;
+    }
+    else{
+        int i = 0;
+        while(i < pos-1){
+            p = p->next;
+            i++;
+        }
+        t->next = p->next;
+        p->next = t;
+    }
+    }
+    
+    void del(int pos){
+    node *p = this->head;
+    if(pos == 0){
+        this->head = this->head->next;
+    }
+    else{
+        int i = 0;
+         while(i < pos-1){
+            p = p->next;
+            i++;
+        }
+        p->next = p->next->next;
+    }
+    }
+    
+    void reverse(){
+    if(this->head == NULL)
+        cout<<"no element";
+    else {
+        node *prev = NULL;
+        node *curr = this->mid;
+        while(curr != NULL) {
+            node *temp = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        last = prev;
+    }
+    }
+    
+    void display() {
+        node* p = this->head;
+        while(p != NULL){
+        cout<<p->data<<" ";
+        p = p->next;
+        }
+    }
+    
+    void middle(){
+        node *slow = this->head;
+        node *fast = this->head;
+        while(fast != NULL && fast->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        this->mid = slow;
+    }
+    
+    bool isPalindrome() {
+        node *start = this->head;
+        middle();
+        reverse();
+        while(last != NULL){
+            if(start->data != last->data)
+                return false;
+            
+            start = start->next;
+            last = last->next;
+        }
+        return true;
+    }
+};
+
+
+int main() {
+    LinkList ll;
+    ll.push('a');
+    ll.push('a');
+    ll.push('b');
+    ll.push('a');
+    ll.push('a');
+    ll.display();
+    cout<<endl;
+    cout<<ll.isPalindrome();
+}

@@ -1,0 +1,18 @@
+
+#include <iostream>
+
+int main() {
+    // Write C++ code here
+    int  n = 6, pos = 0;
+    
+    n &= (1<<pos);
+    
+    std::cout<<n;
+
+    return 0;
+}
+
+output:
+
+110 = 6	//it will return bit at pos
+0 // at pos =0 it will return 0

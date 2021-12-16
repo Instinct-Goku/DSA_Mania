@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void swap(int *a, int *b){
+    *a = *a^*b;
+    *b = *a^*b;
+    *a = *a^*b;
+}
+
+void cycle(int *a, int k, int n) {
+    int t = k;
+    while(t--){
+    int i = 0;
+    while(i < n-1){
+        swap(a[i],a[n-1]);
+        i++;
+    }
+    }
+}
+
+int main() {
+    int a[] = {1,2,5,6};
+    int n = sizeof(a)/sizeof(a[0]);
+    int k = 2;
+    cycle(a, k, n);
+    for(int i = 0; i < n; i++){
+        cout<<a[i]<<" ";
+    }
+  
+}

@@ -1,0 +1,25 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void prevSmall(int *a, int n) {
+    deque<int> s;
+    for(int i = 0; i < n; i++){
+        while(!s.empty() && s.back() >= a[i]){
+            s.pop_back();
+        }
+        if(s.empty())
+            cout<<-1<<" ";
+        else
+            cout<<s.back()<<" ";
+            
+        s.push_back(a[i]);
+    }
+}
+
+int main() {
+    int a[] = {5,7,10,3,12};
+    int n = sizeof(a)/sizeof(a[0]);
+    
+   prevSmall(a, n);
+}

@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int bits(int a[], int n){
+    int res = 0;
+   for(int i = 0; i < n; i++) 
+        res ^= a[i];
+    int temp = res;
+     for(int i = 0; i < n; i++){
+         if (a[i]&1)
+            res ^= a[i];
+     }
+     cout<<res<<endl;
+     cout<<(res^temp);
+}
+
+int main() {
+    int n[] = {10,5,1,1,4,3,10,3};        
+    bits(n, 8);  
+}

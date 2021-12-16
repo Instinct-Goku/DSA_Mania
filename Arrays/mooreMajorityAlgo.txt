@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int ar[] = {1,2,1,3,1,2,2,2,2};
+    int ans = 0;
+    int N = sizeof(ar)/sizeof(ar[0]);
+    int anyindex = 0;
+    int count = 1;
+    for(int i = 0; i < N; i ++){
+        if(ar[i] == ar[anyindex])
+            count++;
+        else
+            count--;
+        
+        if(count == 0){
+            anyindex = i;
+            count = 1;
+        }
+    }
+    for(int i = 0; i < N; i++){
+        if(ar[i] == ar[anyindex])
+            ans++;
+    }
+    if(ans > N/2)
+        cout<<ar[anyindex];
+}

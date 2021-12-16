@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//using recursion
+int gcdRec(int a, int b) {
+    if(b == 0)
+        return a;
+    else
+        return gcd(b,a%b);
+}
+
+//without recursion
+int gcd(int a, int b) {
+    int t;
+    while(b){
+        t =  a%b;
+        a = b;
+        b = t;
+    }
+    return a;
+}
+int main() {
+    int a = 27, b = 15;
+    cout<<gcd(a,b);
+}

@@ -1,0 +1,21 @@
+
+#include <iostream>
+using namespace std;
+
+int count = 1;
+
+void check(int p) {
+    cout<<"case #"<<count<<": "<<(p&1)<<endl;
+    count++;
+}
+
+int main() {
+    int n,t,a,b;
+    cin>>t;
+    while(t--) {
+        cin>>a; //get inputs
+        check(a); //calls add func
+    }
+
+    return 0;
+}

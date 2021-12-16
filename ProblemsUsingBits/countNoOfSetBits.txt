@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int setBits(int n) {
+    int c = 0, bit = 0;
+    while(n) {
+        bit = n&1;
+        if(bit)
+            c++;
+        
+        n = n>>1;
+    }
+    return c;
+}
+
+
+int main() {
+    cout<<setBits(7);
+}

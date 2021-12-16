@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+void pattern_util(int n, int t){
+
+	if(n == 0)
+		return;
+
+	pattern_util(n-1,t+1);
+	while(t--)
+		cout<<" ";
+	for(int i = 0; i < n; i++)
+		cout<<"*"<<" ";
+	cout<<endl;
+}
+
+void pattern(int n) {
+	int t = 0;
+
+	pattern_util(n,t);
+
+}
+
+int main() {
+
+	pattern(3);
+}

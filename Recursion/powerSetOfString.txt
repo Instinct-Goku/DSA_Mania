@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void powerSet(string s,int i = 0,  string cur = "") {
+    if(i == s.length()){
+        cout<<cur<<endl;
+        return;
+    }
+    
+    powerSet(s, i+1, cur+s[i]);
+    powerSet(s, i+1, cur);
+}
+
+int main() {
+    string s = "bdd";
+    powerSet(s);
+}

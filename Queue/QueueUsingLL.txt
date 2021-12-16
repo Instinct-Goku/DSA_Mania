@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+    public:
+    int data;
+    Node* next = NULL;
+
+        Node(int data){
+            this->data = data;
+        }
+};
+
+
+class Queue {
+    public:
+    Node *Front,*Rear;
+    
+    void enqueue(int data) {
+        Node *n = new Node(data);
+        if(Front == NULL)
+            Front = Rear = n;
+        else{
+            Rear->next = n;
+            Rear = n;
+        }
+    }
+    
+    int dequeue() {
+        int res;
+        if(Front == NULL){
+            cout<<"Queue is empty"<<endl;
+        }
+        else{
+             res = Front->data;
+            Front = Front->next;
+           
+        }
+         return res;
+    }
+    
+    bool isEmpty() {
+        return Front == NULL;
+    }
+} ;
+
+int main() {
+  Queue q1;
+  q1.enqueue(15);
+  q1.enqueue(20);
+  cout<<q1.dequeue()<<endl;
+  cout<<q1.dequeue()<<endl;
+  if(q1.isEmpty()) cout<<"empty";
+}

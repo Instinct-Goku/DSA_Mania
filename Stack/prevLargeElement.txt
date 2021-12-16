@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+void prevLarge(int *a, int n){
+    stack<int> s;
+    for(int i = 0; i < n; i++){
+        while(!s.empty() && s.top() <= a[i]){
+            s.pop();
+        }
+        
+        if(s.empty())
+            cout<<-1<<" ";
+        else
+           cout<<s.top()<<" ";
+           
+        s.push(a[i]);
+    }
+}
+
+
+int main() {    
+    int a[] = {4,1,3,4,1};
+    int n = sizeof(a)/sizeof(a[0]);
+    prevLarge(a,n);
+}

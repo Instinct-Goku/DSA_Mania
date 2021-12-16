@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+void Prime(int n ) {
+    bool res[n+1];
+    memset(res, true, sizeof(res));
+    res[0] = false;
+    res[1] = false;
+    for(int i = 2; i <= sqrt(n); i++){
+        for(int j = i*2; j<=n; j += i){
+            res[j] = false;
+        }
+    }
+    for(int i = 0; i <= n; i++)
+        if(res[i])
+            cout<<i<<",";
+}
+int main() {
+    int n = 12;
+    Prime(n);
+}

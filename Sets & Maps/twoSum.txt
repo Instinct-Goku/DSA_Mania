@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+void twoSum(int *a, int n, int sum) {
+   map<int, int> m;
+   for(int i=0; i < n; i++) {
+       int cur = sum - a[i];
+       auto it = m.find(cur);
+       if(it != m.end()){
+           cout<<it->second<<" "<<i;
+       }
+       else{
+           m.insert({a[i], i});
+       }
+   }
+}
+
+int main() {
+    int  a[] = {-3,2,-3};
+    int n = sizeof(a)/sizeof(a[0]);
+    int sum = -6;
+    twoSum(a, n, sum);
+}
+
+6 3             
+1 3 2 6 1 2

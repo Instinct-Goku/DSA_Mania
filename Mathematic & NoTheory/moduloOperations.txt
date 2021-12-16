@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+/*
+(a+b)%M = ((a%M) + (b%M))%M
+(a*b)%M = ((a%M) * (b%M))%M
+(a-b)%M = ((a%M) - (b%M) + M)%M
+(a/b)%M = ((a%M) * (b^-1%M))%M
+*/
+
+
+int modpower(int a, int b, int M){
+    long res = 1; 
+    while(b > 0) {
+        if(b&1)
+            res = (res*(a%M))%M;
+            
+        a = ((a%M)*(a%M))%M;
+        b = b>>1;
+    }
+    return res;
+}
+
+
+int power(int a, int b){
+    int res = 1; 
+    while(b > 0) {
+        if(b&1)
+            res = res*a;
+            
+        a = a*a;
+        b = b>>1;
+    }
+    return res;
+}
+
+
+int main() {
+    int a = 32545646, b =89798796, M = 1000007;
+    cout<<power(a,b)<<endl;
+    cout<<modpower(a,b,M);
+}

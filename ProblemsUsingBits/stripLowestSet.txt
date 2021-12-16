@@ -1,0 +1,16 @@
+
+#include <iostream>
+
+int main() {
+    // Write C++ code here
+    int  n = 6;
+    int r = (n & (n-1));
+    std::cout<<r;
+
+    return 0;
+}
+
+output: 
+110 = 6     //strip lowest set bit
+100         //strp 1 and set 0
+            

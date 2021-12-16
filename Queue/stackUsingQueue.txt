@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+class stackUsingQueue {
+	public:
+	queue<int> q1;
+	queue<int> q2;
+	
+	void push(int val){
+		while(!q1.empty()){
+			q2.push(q1.front());
+			q1.pop();
+		}
+		q1.push(val);
+		while(!q2.empty()){
+			q1.push(q2.front());
+			q2.pop();
+		}
+	}
+	
+	int pop(){
+		int x = q1.front();
+		q1.pop();
+		return x;
+	}
+};
+
+
+int main(){
+	stackUsingQueue s1;
+	s1.push(10);
+	s1.push(20);
+	s1.push(30);
+	
+	cout<<s1.pop()<<endl;
+	cout<<s1.pop();
+}

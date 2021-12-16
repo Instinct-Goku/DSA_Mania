@@ -1,0 +1,17 @@
+
+#include <iostream>
+
+int main() {
+    int  n = 10;
+    int r = (n & (-n));
+    cout<<r;
+    return 0;
+}
+
+output: 
+1010 = 10 //it returns lowest set bit
+10	//it returned 10 		
+
+
+
+            

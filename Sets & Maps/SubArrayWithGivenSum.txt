@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int subArrayWithoutHash(int *a, int n, int sum) {
+    int curSum = a[0], start = 0, end = -1;
+    for(int i = 1; i < n; i++){
+        while(curSum > sum && start < i-1){
+            curSum = curSum - a[start];
+            start++;
+        }
+        if(curSum == sum){
+            cout<<"start: "<<start<<" end: "<<i-1;
+            return 1;
+        }
+        
+        if(i < n)
+        curSum += a[i];
+    }
+    cout<<"no subarray found";
+        /* without hash time complexity: O(n)
+        space complexity: O(1) 
+        but not for negative elements */ 
+}
+
+void subArray(int *a, int n, int sum) {
+    int curSum = 0, end = -1, start = 0;
+    map<int, int> h;
+    for(int i = 0; i < n; i++) {
+        curSum += a[i];
+        if(curSum == sum){
+            start = 0;
+            end = i;
+            break;
+        }
+        auto it = h.find(curSum - sum);
+        if(it != h.end()){
+            start = it->second + 1;
+            end = i;
+            break;
+        }
+        h.insert({ curSum, i });
+    }
+    if(end == -1)
+        cout<<"no Sub array found";
+    else{
+        for(int j = start; j <= end; j++)
+            cout<<a[j]<<" ";
+    }
+        /*using hash with time complexity: O(n)
+        space complexity: O(n) */
+}
+
+
+int main() {
+    int  a[] = {1, 4, 20, 3, 10, 5};
+    int n = sizeof(a)/sizeof(a[0]);
+    int sum = 23;
+    subArray(a, n, sum);
+}

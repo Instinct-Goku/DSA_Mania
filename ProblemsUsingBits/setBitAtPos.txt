@@ -1,0 +1,11 @@
+
+#include <iostream>
+
+int main() {
+    // Write C++ code here
+    int a = 4, pos = 1;
+    
+    cout<<(a | (1<<pos));
+
+    return 0;
+}

@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int priority(char a){
+    if(a == '+' || a == '-')
+        return 1;
+    else 
+        return 2;
+}
+
+string postFix(string s) {
+    stack<char> st;
+    string result = "";
+    for(int i = 0; i < s.length(); i++){
+        if(s[i] == '(')
+            st.push(s[i]);
+        else if(isalpha(s[i]))
+            result += s[i];
+        else if(s[i] == ')'){
+            while(st.top() != '('){
+                result += st.top();
+                st.pop();
+            }
+            st.pop();
+        }
+        else {
+          if(st.empty() || st.top() == '(' || priority(s[i]) > priority(st.top()) )
+          st.push(s[i]);
+          else{
+              while(!st.empty() && priority(s[i]) <= priority(st.top())){
+                  result += st.top();
+                  st.pop();
+              }
+              st.push(s[i]);
+          }
+        }
+    }
+    while(!st.empty()){
+        if(st.top() != '(' || st.top() != ')')
+        result += st.top();
+        st.pop();
+    }
+    
+    return result;
+}
+
+string rev(string s){
+    string res = "";
+    for(int i = s.length()-1; i >= 0;i--){
+        if(s[i] == ')')
+            res += '(';
+        else if(s[i]== '(')
+            res += ')';
+        else
+            res += s[i];
+    }
+    return res;
+}
+
+string preFix(string s) {
+    string t = rev(s);
+    string temp = postFix(t);
+    return rev(temp);
+}
+
+int main()
+{
+    string s = "a+(b*c)";
+    cout<<"postFix: "<<postFix(s)<<endl;
+    cout<<"preFix: "<<preFix(s);
+}

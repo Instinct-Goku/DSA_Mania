@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+float findMedian(int *a, int n){
+    priority_queue<int> maxHeap;
+    priority_queue<int, vector<int>, greater<int> > minHeap;
+    
+    for(int i = 0; i < n; i++){
+        if(maxHeap.empty())
+            maxHeap.push(a[i]);
+        else if(a[i] > maxHeap.top()){
+            minHeap.push(a[i]);
+            if(minHeap.size() > maxHeap.size()){
+                maxHeap.push(minHeap.top());
+                minHeap.pop();
+            }
+        }
+        else{
+            maxHeap.push(a[i]);
+        }
+         
+        if(maxHeap.size() > minHeap.size() && !((i+1)&1)){
+            minHeap.push(maxHeap.top());
+            maxHeap.pop();
+        }
+    }
+    
+    if(n&1){
+        return maxHeap.top();
+    }
+    else{
+        return (float)(maxHeap.top() + minHeap.top())/2;
+    }
+    
+}
+
+int main() {
+    int a[] = {5, 7, 8};
+    int n = sizeof(a)/sizeof(a[0]);
+    cout<<findMedian(a, n);
+}
