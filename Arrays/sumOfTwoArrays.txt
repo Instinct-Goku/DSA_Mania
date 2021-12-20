@@ -1,49 +1,59 @@
-#include<bits/stdc++.h>
+// C++ program to implement
+// the above approach
+
+#include <bits/stdc++.h>
 using namespace std;
 
-void add(int *l1, int *l2, int m, int n){
-    int res[20];
-    int carry = 0;
-    int i = m;
-    int j = n;
-    int k = m;
-    int t = 0;
-    while(j >= 0){
-        t = l1[i] + l2[j] + carry;
-        res[k] = t%10;
-        carry = t/10;
-        i--;
-        j--;
-        k--;
-    }
-    
-    while(i >= 0){
-        t = l1[i] + carry;
-        res[k] = t%10;
-        carry = t/10;
-        k--;
-        i--;
-    }
-    
-    if(carry)
-        cout<<carry<<" ";
-        
-    for(int i = 0; i <= m; i++)
-        cout<<res[i]<<" ";
-  
-    
+
+
+
+void sumArrays(int *a, int *b, int n, int m) {
+	int i = n-1;
+	int j = m-1;
+
+	int carry = 0;
+	vector<int> v;
+
+	while(i >= 0 && j >= 0) {
+		int sum = a[i]+b[j]+carry;
+		v.push_back(sum%10);
+		carry = sum/10;
+		i--;
+		j--;
+	}
+
+	while(i >= 0){
+		int sum = a[i]+carry;
+		v.push_back(sum%10);
+		carry = sum/10;
+		i--;
+	}
+
+	while(j >= 0){
+		int sum = b[j]+carry;
+		v.push_back(sum%10);
+		carry = sum/10;
+		j--;
+	}
+
+	if(carry)
+		v.push_back(carry);
+
+	reverse(v.begin(),v.end());
+
+
+	for(int i = 0; i < v.size();i++){
+		cout<<v[i]<<" ";
+	}
 }
 
+// Driver Code
 int main() {
-    int l1[] = {1,5,4,8};
-    int l2[] = {9,2,1,5};
-    int m = sizeof(l1)/sizeof(l1[0]) - 1;
-    int n = sizeof(l2)/sizeof(l2[0]) - 1;
-    
-    if(m > n)
-        add(l1, l2, m, n);
-    else if(n > m)
-        add(l2, l1, n, m);
-    else
-        add(l1, l2, m, n);
+	int a[] = {1,5,6,7,8,0};
+	int b[] = {1,2};
+	int n = sizeof(a)/sizeof(a[0]);
+	int m = sizeof(b)/sizeof(b[0]);
+	
+	sumArrays(a,b,n,m);
+	
 }

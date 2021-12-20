@@ -1,0 +1,32 @@
+// C++ program to implement
+// the above approach
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+void movingZero(int *a, int n) {
+
+	int i = 0;
+
+	for(int j = 0; j < n; j++){
+		if(a[j] != 0) {
+			swap(a[i], a[j]);
+			i++;
+		}
+	}
+
+	for(int j = 0; j < n; j++)
+		cout<<a[j]<<" ";
+
+}
+
+// Driver Code
+int main() {
+	int a[] = {1,0,0,1,0,1,0};
+
+	int n = sizeof(a)/sizeof(a[0]);
+	
+	movingZero(a, n);
+}

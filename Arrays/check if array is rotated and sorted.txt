@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+bool isRotated(int *a, int n)  {
+
+	int pair = 0;
+    
+	for(int i = 1; i < n; i++){
+		if(a[i-1] > a[i])
+			pair++;
+	}
+
+	if(a[n-1] > a[0])
+		pair++;
+
+	return pair <= 1;
+}
+
+
+int main() {
+    int a[] = {3,4,5,1,2};
+    int n = sizeof(a)/sizeof(a[0]);
+    cout<<isRotated(a, n);
+}
+
