@@ -1,0 +1,85 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+bool Possible(int a[][2], int n , int mid) {
+	int min_comp = 1;
+	int cur_comp = 1;
+	unordered_map<int, pair<int, int>> m;
+
+	for(int i = 0; i < n; i++) {
+
+		int t1 = a[i][0];
+		int t2 = a[i][1];
+
+		auto it = m.find(cur_comp);
+		if(it != m.end()) {
+			pair<int, int> x = it->second;
+
+			if(t1 < x.second && t2 > x.first){
+				cur_comp += 1;
+			}
+			
+			if(cur_comp > min_comp){
+				min_comp = cur_comp;
+				cur_comp = 1;
+			}
+
+			m.insert({min_comp, {t1, t2}});
+
+			if(min_comp > mid){
+				return false;
+			} 
+
+		}
+		else {
+			m.insert({min_comp, {t1, t2}});
+		}
+
+	}
+
+	return true;
+}
+
+
+int minComp(int a[][2], int n) {
+	
+	int start = 0;
+	int end = n;
+
+	int mid = (start+end)/2;
+	int ans = -1;
+	while(start < end) {
+
+		if(Possible(a, n , mid)) {
+			ans = mid;
+			end = mid-1;
+		}
+		else {
+			start = mid+1;
+		}
+		mid = (start+end)/2;
+	}
+
+	return ans;
+}
+
+
+int main() {
+	int n;
+	cin>>n;
+
+	int a[n][2];
+
+	int x, y;
+	for(int i = 0; i < n;i++) {
+		cin>>x>>y;
+		a[i][0] = x;
+		a[i][1] = y;
+	}
+
+	
+	cout<<minComp(a, n);
+
+}
+
