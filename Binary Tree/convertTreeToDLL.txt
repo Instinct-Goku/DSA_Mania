@@ -1,0 +1,92 @@
+1
+2#include<bits/stdc++.h>
+using namespace std;
+
+class Node {
+    
+    public:
+    int data;
+    Node *left, *right;
+
+    Node(int data) {
+        this->data = data;
+        left = right = NULL;
+    }
+};
+
+
+Node *createTree() {
+    int data;
+    cin>>data;
+    Node *root = new Node(data);
+    
+    if(data == -1)
+        return NULL;
+        
+    cout<<"enter left data for "<<root->data<<": ";
+    root->left = createTree();
+    
+    cout<<"enter right data for "<<root->data<<": ";
+    root->right = createTree();
+    
+    
+    return root;
+}
+
+void inOrder(Node *root) {
+    if(root == NULL)
+        return;
+        
+    inOrder(root->left);
+    cout<<root->data<<" ";
+    inOrder(root->right);
+}
+
+
+Node *prevv = NULL, *head = NULL;
+
+void convertIntoDLL(Node *root){
+    if(root == NULL)
+        return;
+        
+    convertIntoDLL(root->left);
+    
+    if(prevv == NULL)
+        head = root;
+    else{
+        root->left = prevv;
+        prevv->right = root;
+    }
+    
+    prevv = root;
+    
+    convertIntoDLL(root->right);
+    
+}
+
+int main() {
+    cout<<"enter data for root ";
+    Node *root = createTree();
+    
+    cout<<endl;
+    inOrder(root);
+    cout<<endl;
+    
+    convertIntoDLL(root);
+    
+    Node *p = head;
+    while(p != NULL) {
+        cout<<p->data<<" ";
+        p = p->right;
+    }
+    
+}
+5
+-1
+-1
+6
+-1
+-1
+3
+-1
+-1
