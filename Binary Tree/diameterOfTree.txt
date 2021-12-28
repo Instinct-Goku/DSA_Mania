@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+class node {
+    public:
+    int data;
+    node *left, *right;
+    
+    node(int data){
+        this->data = data;
+    }
+};
+
+
+node *createTree() {
+    node *root = NULL;
+    int data;
+    
+    cin>>data;
+    root = new node(data);
+    
+    if(data == -1)
+        return NULL;
+    
+    cout<<"enter left data for "<<root->data<<": ";
+    root->left = createTree();
+    
+    cout<<"enter right data for "<<root->data<<": ";
+    root->right = createTree();
+    
+    return root;
+}
+
+int ans = 0;
+int diameter(node *root) {
+    if(root == NULL)
+        return 0;
+
+    int lh = diameter(root->left);
+    int rh = diameter(root->right);
+    ans = max(ans, lh + rh);
+    return lh + rh + 1;
+}
+
+int main() {
+    cout<<"enter data for root: ";
+    node *root = createTree();
+    
+    diameter(root);
+    cout<<"diameter: "<<ans<<endl;
+}
