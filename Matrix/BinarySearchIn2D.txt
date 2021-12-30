@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& a, int target) {
+        int row = a.size();
+        int col = a[0].size();
+        
+        int s = 0, e = row*col-1;
+        int mid = (s+e)/2;
+        
+        while(s <= e) {
+            int ele = a[mid/col][mid%col];
+            
+            if(ele == target)
+                return 1;
+            
+            if(ele < target){
+                s = mid+1;
+            }
+            else{
+                e = mid-1;
+            }
+            mid = (s+e)/2;
+        }
+        return 0;
+    }
+};

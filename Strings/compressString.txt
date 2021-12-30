@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+void compress(string s) {
+	string res = "";
+	int freq[26] = {0};
+
+	for(int i = 0; i < s.length(); i++){
+		freq[s[i]-'a']++;
+	}
+
+
+	for(int i = 0; i < s.length(); i++) {
+		int count = freq[s[i]-'a'];
+
+		if(count > 1) {
+			res.push_back(s[i]);
+			string c = to_string(count);
+			res.append(c);
+			i += count-1;
+		}
+		else{
+			res.push_back(s[i]);
+		}
+	}
+	cout<<res;
+}
+
+
+int main() {
+	string s = "aabbbcdd";
+	compress(s);
+};
+

@@ -1,0 +1,52 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& a) {
+        vector<int> res;
+        
+        int row = a.size();
+        int col = a[0].size();
+        
+        int total = row*col;
+        int startRow = 0, startCol = 0;
+        int endRow = row-1, endCol = col-1;
+
+        int count = 0;
+
+        while(count < total) {
+
+            //start row -> end row
+            for(int i = startCol; i <= endCol && count < total; i++ ){
+                // cout<<a[startRow][i]<<" ";
+                res.push_back(a[startRow][i]);
+                count += 1;
+            }
+            startRow++;
+
+            //startRow->endRow
+            for(int i = startRow; i <= endRow && count < total; i++){
+                // cout<<a[i][endRow]<<" ";
+                res.push_back(a[i][endCol]);
+                count += 1;
+            }
+            endCol--;
+
+            //endCol->startCol
+            for(int i = endCol; i >= startCol && count < total; i--){
+                // cout<<a[endCol][i]<<" ";
+                res.push_back(a[endRow][i]);
+                count += 1;
+            }
+            endRow--;
+
+            //endRow->startRow
+            for(int i = endRow; i >= startRow && count < total; i--){
+                // cout<<a[i][startCol]<<" ";
+                res.push_back(a[i][startCol]);
+                count += 1;
+            }
+            startCol++;
+
+        }
+        return res;
+    }
+};
