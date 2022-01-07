@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int minimize(int n){
+	int freq[10] = {0};
+
+	int temp = n;
+
+	while(n) {
+		int digit = n%10;
+		freq[digit]++;
+		n = n/10;
+	}
+
+	int ans = 0;
+
+	while(freq[1]--) {
+		ans *= 10;
+		ans += 1;
+	}
+
+	while(freq[0]--){
+		ans *= 10;
+		ans += 0;
+	}
+
+	for(int i = 2; i < 10; i++){
+		while(freq[i]--){
+		ans *= 10;
+		ans += i;
+		}
+	}
+	return ans;
+}
+
+int main() {
+   int n = 570107;
+   cout<<minimize(n);
+}
+
+//11002571

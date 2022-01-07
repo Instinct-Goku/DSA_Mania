@@ -1,0 +1,25 @@
+#include <sstream>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+vector<int> parseInts(string str) {
+
+    istringstream ss(str);
+    string t;
+    while(getline(ss, t, ',')) {
+        cout<<t<<endl;
+    }
+    return {};
+}
+
+int main() {
+    string str;
+    cin >> str;
+    vector<int> integers = parseInts(str);
+    for(int i = 0; i < integers.size(); i++) {
+        cout << integers[i] << "\n";
+    }
+    
+    return 0;
+}
