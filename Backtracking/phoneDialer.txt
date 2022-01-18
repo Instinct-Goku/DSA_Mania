@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void comb(string s, vector<string> &v, int i, string ans) {
+
+	if(i >= s.length()){
+		cout<<ans<<endl;
+		return;
+	}
+
+
+	string temp = v[s[i] - '0'];
+
+	for(int k = 0; k < temp.length(); k++){
+		comb(s, v, i+1, ans+temp[k]);
+	}
+	ans.pop_back();
+}
+
+int main() {
+	string s = "23";
+	vector<string> v = {"", "", "abc","def","ghi","jkl","mno","pqrs", "tuv", "wxyz"};
+	comb(s, v, 0, "");
+}

@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node {
+    public:
+    int data;
+    node *left, *right;
+    
+    node(int data){
+        this->data = data;
+    }
+};
+
+node *createTree() {
+    node *root = NULL;
+    int data;
+    
+    cin>>data;
+    root = new node(data);
+    
+    if(data == -1)
+        return NULL;
+    
+    cout<<"enter left data for "<<root->data<<": ";
+    root->left = createTree();
+    
+    cout<<"enter right data for "<<root->data<<": ";
+    root->right = createTree();
+    
+    return root;
+}
+ 
+
+node* lca(node *root, int a, int b) {
+    if(root == NULL)
+        return NULL;
+
+    if(root->data == a || root->data == b)
+        return root;
+
+    node *l = lca(root->left, a, b);
+    node *r = lca(root->right, a,b);
+
+    if(l&&r)
+        return root;
+
+    if(l == NULL)
+        return r;
+    else
+        return l;
+}
+
+
+int main() {
+    cout<<"enter data for root: ";
+    node *root = createTree();
+    
+    node* ans = lca(root, 6,3);
+    cout<<ans->data;
+}

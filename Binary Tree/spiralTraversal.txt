@@ -1,0 +1,78 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node {
+    public:
+    int data;
+    node *left, *right;
+    
+    node(int data){
+        this->data = data;
+    }
+};
+
+node *createTree() {
+    node *root = NULL;
+    int data;
+    
+    cin>>data;
+    root = new node(data);
+    
+    if(data == -1)
+        return NULL;
+    
+    cout<<"enter left data for "<<root->data<<": ";
+    root->left = createTree();
+    
+    cout<<"enter right data for "<<root->data<<": ";
+    root->right = createTree();
+    
+    return root;
+}
+ 
+
+void spriralTrav(node *root) {
+   if(root == NULL)
+        return;
+
+    
+    stack<node> q;
+    stack<node> s;
+
+    q.push(*root);
+    while(!q.empty() || !s.empty()) {
+
+        while(!q.empty()){
+            node *cur = &q.top();
+            cout<<cur->data<<" ";
+            q.pop();
+
+            if(cur->right != NULL)
+                s.push(*cur->right);
+
+            if(cur->left != NULL)
+                s.push(*cur->left);
+        }
+
+        while(!s.empty()) {
+            node *cur = &s.top();
+            cout<<cur->data<<" ";
+            s.pop();
+
+            if(cur->left != NULL)
+                q.push(*cur->left);
+
+            if(cur->right != NULL)
+                q.push(*cur->right);           
+        }
+    }
+   
+}
+
+int main() {
+    cout<<"enter data for root: ";
+    node *root = createTree();
+    
+    cout<<"spiral Traversal: ";
+   spriralTrav(root);
+}

@@ -1,0 +1,98 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+  bool isSafe(vector<vector<int>> &a, vector<vector<int>> &visited, int n, int x, int y) {
+            if(x >= 0 && x < n && y >= 0 && y < n && a[x][y] == 1 && visited[x][y] == 0)
+        		return true;
+        	else
+        		return false;
+        }  
+
+	 void solve(vector<vector<int>> &a, vector<vector<int>> &visited, int n,
+                int x, int y, string temp, vector<string> &ans) {
+                    
+                if(x == n-1 && y == n-1){
+            		ans.push_back(temp);
+            		return;
+            	}
+            	
+            	visited[x][y] = 1;
+            	
+            	//down
+            	if(isSafe(a,visited, n, x+1, y)){
+            		temp.push_back('D');
+            		solve(a,visited, n, x+1, y, temp, ans);
+            		temp.pop_back();
+            	}
+            
+            	//right
+            	if(isSafe(a,visited, n, x, y+1)){
+            		temp.push_back('R');
+            		solve(a,visited, n, x, y+1, temp, ans);
+            		temp.pop_back();
+            	}
+            
+            	//left
+            	if(isSafe(a,visited, n, x, y-1)){
+            		temp.push_back('L');
+            		solve(a,visited, n, x, y-1, temp, ans);
+            		temp.pop_back();
+            	}
+            
+            	//up
+            	if(isSafe(a,visited, n, x-1, y)){
+            		temp.push_back('U');
+            		solve(a,visited, n, x-1, y, temp, ans);
+            		temp.pop_back();
+            	}
+            
+            
+            	visited[x][y] = 0; //backtrack
+                            
+        }
+    
+
+vector<string> findPath(vector<vector<int>> &a, int n) {
+	   
+        vector<string> ans;
+        
+        if(a[0][0] == 0 || a[n-1][n-1] == 0){
+            return ans;
+        }
+        
+        vector<vector<int>> visited = a;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++) {
+                visited[i][j] = 0;
+            }
+        }
+        
+        string temp;
+        
+        solve(a, visited, n, 0, 0, temp, ans);
+        
+        return ans;
+}
+
+
+
+int main() {
+	
+	vector<vector<int>> a = {{1, 0, 0, 0},
+					         {1, 0, 0, 0}, 
+					         {1, 0, 1, 0},
+					         {1, 1, 1, 1}};
+							
+
+	int n = 4;
+
+	vector<string> ans = findPath(a, n);
+
+	for(int i = 0; i < ans.size(); i++)
+		cout<<ans[i]<<endl;
+
+	
+
+}
+

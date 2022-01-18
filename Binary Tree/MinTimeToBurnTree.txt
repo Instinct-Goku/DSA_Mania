@@ -1,0 +1,86 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node {
+    public:
+    int data;
+    node *left, *right;
+    
+    node(int data){
+        this->data = data;
+    }
+};
+
+node *createTree() {
+    node *root = NULL;
+    int data;
+    
+    cin>>data;
+    root = new node(data);
+    
+    if(data == -1)
+        return NULL;
+    
+    cout<<"enter left data for "<<root->data<<": ";
+    root->left = createTree();
+    
+    cout<<"enter right data for "<<root->data<<": ";
+    root->right = createTree();
+    
+    return root;
+}
+ 
+
+class Depth {
+    public:
+    int val;
+    Depth(int data) {
+        val = data;
+    }
+};
+
+int BurnTime = 0;
+
+int minTime(node *root, int leaf, Depth* d) {
+    if(root == NULL)
+        return 0;
+
+    if(root->data == leaf){
+        d->val = 1;
+        return 1;
+    }
+
+    Depth* ld = new Depth(-1);
+    Depth* rd = new Depth(-1);
+    int lh = minTime(root->left, leaf, ld);
+    int rh = minTime(root->right, leaf, rd);
+
+    if(ld->val != -1){
+        BurnTime = max(BurnTime, ld->val+1+rh);
+        d->val = ld->val+1;
+    }
+    else{
+        BurnTime = max(BurnTime, rd->val+1+lh);
+        d->val = rd->val+1;
+    }
+
+    return max(lh, rh) + 1;
+}
+
+int burnTreeTime(node *root, int leaf) {
+    if(root == NULL)
+        return 0;
+    
+    Depth* d = new Depth(-1);
+    
+    minTime(root, leaf, d);
+    return BurnTime;
+}
+
+int main() {
+    cout<<"enter data for root: ";
+    node *root = createTree();
+    
+     cout<<"minTime to Burn: ";
+    cout<<burnTreeTime(root, 6);;
+}
