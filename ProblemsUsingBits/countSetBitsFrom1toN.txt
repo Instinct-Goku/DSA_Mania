@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int find2powerX(int n) {
+    int x = 0;
+
+    while((1<<x) <= n) {
+        x++;
+    }
+
+    return x-1;
+}
+
+
+int countBits(int n ) {
+
+    if(n == 0)
+        return 0;
+
+    int x = find2powerX(n);
+
+    int beforeX = (1<<(x-1))*x;
+
+    int afterX = (n-(1<<x)+1);
+
+    int rem = (n-(1<<x));
+
+    int ans = beforeX + afterX + countBits(rem);
+
+    return ans;
+}
+
+
+
+int main() {
+    int n = 16;
+
+    cout<<countBits(n);
+}
+
+

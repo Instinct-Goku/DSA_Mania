@@ -1,0 +1,74 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int solve(int **a, int row, int col) {
+	unordered_map<int, int> m;
+
+	for(int i = 0 ; i < row; i++) {
+		for(int j = 0; j < col; j++) {
+			auto it = m.find(a[i][j]);
+			if(it != m.end()){
+				m[a[i][j]] += 1;
+			}
+			else{
+				m[a[i][j]] = 1;
+			}
+		}
+	}
+
+	int sum = 0;
+	for(int i = 0; i < row; i++) {
+		auto it = m.find(a[i][i]);
+		if(it != m.end()){
+			if(it->second == 1){
+				sum += a[i][i];
+			}
+		}
+	}
+	return sum;
+}
+
+
+int main() {
+    int m,n,x,y;
+    cin>>m>>n;
+    x = m;
+    y = n;
+    if(m != n){
+    	if(x<y)
+    		x += 1;
+    	else
+    		y+= 1;
+    }
+    int **a = new int*[x];
+
+    for(int i = 0; i < x; i++){
+    	a[i] = new int[y];
+    }
+
+    for(int i = 0; i < m; i++){
+    	for(int j = 0; j < n; j++){
+    		cin>>a[i][j];
+    	}
+    }
+    if(x != m){
+    	for(int i = 0; i < n; i++){
+    		a[m][i] = 1;
+    	}
+    }
+
+    if(y != n){
+		for(int i = 0; i < y; i++){
+    		a[i][n] = 1;
+    	}
+    }
+
+    for(int i = 0; i < x; i++){
+    	for(int j = 0; j < y; j++){
+    		cout<<a[i][j]<<" ";
+    	}
+    	cout<<endl;
+    }
+
+    cout<<solve(a,x,y);
+}
