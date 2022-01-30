@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+string numToWord(int n, string s) {
+   string ones[] = {"", "one ", "two ", "three ", "four ", "five ", "six ", "seven ", "eight ",
+                    "nine ", "ten ","eleven ", "twelve ", "thirteen ", "fourteen ", "fifteen ",
+                    "sixteen ", "seventeen ", "eighteen ", "nineteen"};
+
+   string tens[] = {"", "", "twenty ", "thirty ", "fourty ", "fifty ", "sixty ","seventy ",
+                    "eighty ", "ninety  "};
+
+    string str = "";
+
+    if(n > 19) {
+        str += tens[n/10] + ones[n%10];
+    }
+    else{
+        str += ones[n];
+    }
+
+    if(n){
+        str += s;
+    }
+
+    return str;
+}
+
+
+int main() {
+    int n = 25000;
+    
+    string ans = "";
+    ans += numToWord(n/10000000, "crore ");
+    ans += numToWord((n/100000)%100, "lakh ");
+    ans += numToWord((n/1000)%100, "thousand ");
+    ans += numToWord((n/100)%10, "hundred ");
+
+    if(n > 100 && n%100) {
+        ans += "and ";
+    }
+
+    ans += numToWord(n%100, "");
+    
+    cout<<ans;    
+}
+
