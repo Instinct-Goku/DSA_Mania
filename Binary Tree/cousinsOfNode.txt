@@ -1,0 +1,75 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node {
+    public:
+    int data;
+    Node *left, *right;
+    
+    Node(int data){
+        this->data = data;
+        left = right = NULL;
+    }
+};
+
+
+
+struct myNode {
+    Node* root;
+    Node* parent;
+    int level;
+};
+
+void solve(Node *root, int find) {
+    if(root == NULL)
+        return;
+    
+    queue<myNode> q;
+    Node* findParent;
+    int findLvl;
+    unordered_map<int, vector<myNode>> m;
+
+
+    q.push({root, NULL, 1});
+    while(!q.empty()) {
+        myNode cur = q.front();
+        q.pop();
+        if(cur.root->data == find){
+            findParent = cur.parent;
+            findLvl = cur.level;
+        }
+        
+        m[cur.level].push_back(cur);
+        
+        if(cur.root->left != NULL){
+            q.push({cur.root->left, cur.root, cur.level+1});
+           
+        }
+
+        if(cur.root->right != NULL){
+            q.push({cur.root->right, cur.root, cur.level+1});
+            
+        }
+    }
+
+    for(auto x: m[findLvl]) {
+        if(x.parent != findParent)
+            cout<<x.root->data<<" ";
+    }
+   
+}
+
+
+int main() {
+    Node *root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->left->left = new Node(4);
+    root->left->right = new Node(5);
+    root->right->left = new Node(6);
+    root->right->right = new Node(7);
+
+    solve(root, 5);
+
+}
+
