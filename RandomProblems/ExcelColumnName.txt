@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+string solve(int n) {
+   string s = "";
+    
+    while(n) {
+        int rem = n%26;
+        if(rem == 0)
+            rem = 26;
+        s += (char)(rem+64);
+        n -= rem;
+        n = n/26;
+    }
+    
+    reverse(s.begin(), s.end());
+    return s;
+}
+
+
+int main() {
+    int n = 1231;
+    
+    cout<<solve(n);
+}
+
