@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+char decryptPos(string s, int k) {
+    
+   long long i = 0, j = 0;
+    long long freq, len;
+    long long num;
+    long long n = s.length();
+    
+    while(i < n) {
+        j = i;
+        len = 0;
+        freq = 0;
+        
+        while(j < n && isalpha(s[j])){
+            j++;
+            len++;
+        }
+        
+        while(j < n && isdigit(s[j])){
+            freq = freq * 10 + (s[j] - '0');
+            j++;
+        }
+        
+        num = freq * len;
+        
+        if(k > num) {
+            k -= num;
+            i = j;
+            
+        }
+        else {
+            k--;
+            k = (k%len);
+            return s[i+k];
+        }
+    }
+    return s[k-1];
+}
+
+int main() {
+    string s = "ab12c3";
+    int k = 20;
+    
+    cout<<decryptPos(s, k);
+}

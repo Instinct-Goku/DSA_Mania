@@ -1,0 +1,124 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+class Node {
+private:
+    Node* link[26];
+    bool flag = false;
+    int freq = 0;
+
+public:
+    bool contains(char c) {
+        return link[c - 'a'] != NULL;
+    }
+
+    void put(char c, Node* reference) {
+        link[c-'a'] = reference;
+    }
+
+    Node* getNext(char c) {
+        return link[c-'a'];
+    }
+
+    void putEnd(){
+        this->flag = true;
+    }
+
+    bool isEnd(){
+        return flag;
+    }
+
+    int getFreq(){
+        return freq;
+    }
+
+    void incrFreq() {
+        freq += 1;
+    }
+
+};
+
+
+class Trie {
+public:
+    Node* root = new Node();
+
+    void insert(string word) {
+        Node* p = root;
+
+        for(int i = 0; i < word.length(); i++) {
+            if(!p->contains(word[i])){
+                p->put(word[i], new Node());
+            }
+            p = p->getNext(word[i]);
+            p->incrFreq();
+        }
+        p->putEnd();
+    }
+
+    bool search(string word) {
+         Node* p = root;
+
+         for(int i = 0; i < word.length(); i++) {
+            if(!p->contains(word[i])){
+                return false;
+            }
+            p = p->getNext(word[i]);
+        }
+        return p->isEnd();
+    }
+
+    bool startsWith(string word) {
+        Node* p = root;
+
+        for(int i = 0; i < word.length(); i++) {
+            if(!p->contains(word[i])){
+                return false;
+            }
+            p = p->getNext(word[i]);
+        }
+        return true;
+    }
+
+    string prefix(string word) {
+        Node* p = root;
+        string s = "";
+        for(int i = 0; i < word.length(); i++) {
+
+            if(!p->contains(word[i]))
+                cout<<"not found: "<<endl;
+
+            if(p->getFreq() == 1){
+                break;
+            }
+            else{
+                s += word[i];
+            }
+            p = p->getNext(word[i]);
+        }
+        return s;
+    }
+
+};
+
+
+
+
+
+
+int main() {
+    string arr[] = {"zebra", "dog", "duck", "dove"};
+    int n = 4;
+
+    Trie t;
+
+    for(int i = 0; i < n; i++)
+        t.insert(arr[i]);
+
+    for(int i = 0; i < n; i++)
+    cout<<t.prefix(arr[i])<<endl;
+    
+
+}

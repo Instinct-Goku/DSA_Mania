@@ -1,0 +1,101 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+class Node {
+private:
+    Node* link[26];
+    bool flag = false;
+public:
+    bool contains(char c) {
+        if(link[c - 'a'] != NULL)
+            return true;
+        else
+            return false;
+    }
+
+    void put(char c, Node* reference) {
+        link[c-'a'] = reference;
+    }
+
+    Node* getNext(char c) {
+        return link[c-'a'];
+    }
+
+    void putEnd(){
+        this->flag = true;
+    }
+
+    bool isEnd(){
+        return flag;
+    }
+};
+
+
+class Trie {
+public:
+    Node* root = new Node();
+
+    void insert(string word) {
+        Node* p = root;
+
+        for(int i = 0; i < word.length(); i++) {
+            if(!p->contains(word[i])){
+                p->put(word[i], new Node());
+            }
+            p = p->getNext(word[i]);
+        }
+        p->putEnd();
+    }
+
+    bool search(string word) {
+         Node* p = root;
+
+         for(int i = 0; i < word.length(); i++) {
+            if(!p->contains(word[i])){
+                return false;
+            }
+            p = p->getNext(word[i]);
+        }
+        return p->isEnd();
+    }
+
+    bool startsWith(string word) {
+        Node* p = root;
+
+        for(int i = 0; i < word.length(); i++) {
+            if(!p->contains(word[i])){
+                return false;
+            }
+            p = p->getNext(word[i]);
+        }
+        return true;
+    }
+
+
+};
+
+
+
+
+
+
+int main() {
+    string arr[] = {"apple", "apps", "bag", "appen"};
+    int n = 4;
+
+    Trie t;
+
+    for(int i = 0; i < n; i++)
+        t.insert(arr[i]);
+
+    cout<<t.search("apple")<<endl;
+
+    cout<<t.search("truck")<<endl;
+
+    cout<<t.startsWith("app")<<endl;
+
+    cout<<t.startsWith("bur")<<endl;
+
+}

@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//find longest substring containing same char after changing k chars.
+
+int solve(string s, int k) {
+    vector<int> freq(26,0);
+
+    int l = 0, r = 0;
+    int res = -1;
+
+
+    for(int r = 0; r < s.length(); r++) {
+        freq[s[r] - 'a']++;
+        int size = r-l+1;
+        int m = *max_element(freq.begin(), freq.end());
+        if(size - m <= k){
+            res = max(res, size);
+        }
+        else{
+            if(freq[s[l]-'a'] > 0) freq[s[l]-'a']--;
+            l++;
+        }
+    }
+    return res;
+}
+
+
+int main() {
+    string s = "ababababababab";
+    int k = 5;
+
+    cout<<solve(s, k);
+
+}
