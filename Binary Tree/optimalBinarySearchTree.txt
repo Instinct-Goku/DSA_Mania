@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+    int dp[101][101];
+    int sum(int *freq, int s, int e) {
+        int res = 0;
+        for(int i = s; i <= e; i++){
+            res += freq[i];
+        }
+        return res;
+    }
+    
+    int solve(int *freq, int i, int j) {
+        
+       
+                if(i > j)
+                    return 0;
+
+                if(i == j){
+                    dp[i][j] = freq[i];
+                }
+
+                if(dp[i][j] != -1)
+                    return dp[i][j];
+
+                int cost = INT_MAX;
+                int w = sum(freq,i,j);
+
+                for(int k = i; k <= j; k++){
+                    cost = min(cost, solve(freq, i, k-1) + solve(freq, k+1, j));
+                }
+                
+                return dp[i][j] = cost + w;
+        
+        
+    }
+    
+    
+    int optimalSearchTree(int keys[], int freq[], int n) {
+         
+        memset(dp, -1, sizeof(dp));
+
+        return solve(freq, 0, n);
+        
+    }
+    
+    int main() {
+        int keys[] = {10,20,30};
+        int freq[] = {4,6,2};
+
+        int n = 3;
+
+        
+        cout<<optimalSearchTree(keys, freq, n-1)<<endl;
+
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                cout<<dp[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+    }
+
+
+
+
+
+

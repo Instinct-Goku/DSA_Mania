@@ -1,0 +1,131 @@
+// Online C++ compiler to run C++ program online
+#include <bits/stdc++.h>
+using namespace std;
+
+
+class Node {
+private:
+    Node* link[26];
+    int freq = 0;
+    int end = 0;
+
+public:
+    bool contains(char c) {
+        return link[c - 'a'] != NULL;
+    }
+
+    void put(char c, Node* reference) {
+        link[c-'a'] = reference;
+    }
+
+    Node* getNext(char c) {
+        return link[c-'a'];
+    }
+
+    void incrEnd(){
+        end += 1;
+    }
+    
+    int getEnd() {
+        return end;
+    }
+
+    int getFreq(){
+        return freq;
+    }
+
+    void incrFreq() {
+        freq += 1;
+    }
+    
+    void decrFreq() {
+        if(freq > 0)
+        freq -= 1;
+        else
+        freq = 0;
+    }
+    
+    void decrEnd() {
+        if(end > 0)
+        end -= 1;
+        else
+        end = 0;
+    }
+};
+
+
+class Trie {
+public:
+    Node* root = new Node();
+
+    void insert(string word) {
+        Node* p = root;
+
+        for(int i = 0; i < word.length(); i++) {
+            if(!p->contains(word[i])){
+                p->put(word[i], new Node());
+            }
+            p = p->getNext(word[i]);
+            p->incrFreq();
+        }
+        p->incrEnd();
+    }
+
+    int countOcc(string word) {
+        Node* p = root;
+
+        for(int i = 0; i < word.length(); i++) {
+            if(!p->contains(word[i])){
+               return -1;
+            }
+            p = p->getNext(word[i]);
+        }
+        return p->getEnd();
+    }
+    
+    int countPre(string pre) {
+       Node* p = root;
+
+        for(int i = 0; i < pre.length(); i++) {
+            if(!p->contains(pre[i])){
+               return -1;
+            }
+            p = p->getNext(pre[i]);
+        }
+        return p->getFreq();
+    }
+    
+    void erase(string word) {
+        Node* p = root;
+
+        for(int i = 0; i < word.length(); i++) {
+            if(!p->contains(word[i])){
+               return;
+            }
+            p = p->getNext(word[i]);
+            p->decrFreq();
+        }
+        p->decrEnd();
+    }
+};
+
+
+int main() {
+    string a[] = {"apple","apple","apps", "applet"};
+    int n = 4;
+
+    Trie t;
+
+    for(int i = 0; i < n; i++)
+        t.insert(a[i]);
+    
+    t.erase("apple");
+    cout<<t.countOcc("apple")<<endl;
+    cout<<t.countPre("app");
+
+
+
+}
+
+
+
