@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int solve(int x, int p1, int p2, int n) {
+    int a = (x>>p1) & ((1<<n)-1);
+    int b = (x>>p2) & ((1<<n)-1);
+
+    int c = a^b;
+
+    c = (c<<p1) | (c << p2);
+
+    return x ^ c;
+}
+
+
+int main() {
+    
+    int x = 28;
+    int p1 = 0;
+    int p2 = 3;
+    int n = 2;
+    
+    cout<<solve(x,p1,p2,n);
+
+    
+}
+

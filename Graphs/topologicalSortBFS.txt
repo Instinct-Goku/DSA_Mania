@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+void bfs(int V, vector<int> adj[], int *inDeg, vector<int> &ans) {
+        queue<int> q;
+        
+        for(int i = 0; i < V; i++) {
+            if(inDeg[i] == 0)
+                q.push(i);
+        }
+        
+        while(!q.empty()) {
+            int cur = q.front();
+            q.pop();
+            ans.push_back(cur);
+            
+            for(auto x : adj[cur]) {
+                if(--inDeg[x] == 0)
+                    q.push(x);
+            }
+        }
+    }
+    
+    vector<int> topoSort(int V, vector<int> adj[]) 
+    {
+        vector<int> ans;
+        int inDeg[V] = {0};
+        
+        for(int i = 0; i < V; i++) {
+            for(auto x: adj[i]){
+                inDeg[x]++;
+            }
+        }
+        
+        bfs(V, adj, inDeg, ans);
+
+        return ans;
+    }
+
+int main() {
+    int V, E;
+    cin>>V>>E;
+
+    vector<int> adj[V];
+
+    int u,v;
+
+    for(int i = 0; i < E; i++) {
+        cin>>u>>v;
+        adj[u].push_back(v);
+    }
+
+    vector<int> ans = topoSort(v, adj);
+
+    for(auto x: ans){
+        cout<<x<<" ";
+    }
+}
+
