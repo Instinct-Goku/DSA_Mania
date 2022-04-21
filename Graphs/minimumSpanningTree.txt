@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+//PRIM'S ALGORITHM
+typedef pair<int, int> pd; 
+
+struct myComp { 
+    constexpr bool operator()( 
+        pair<int, int> const& a, 
+        pair<int, int> const& b) 
+        const noexcept 
+    { 
+        return a.second > b.second; 
+    } 
+}; 
+
+
+int minSpan(vector<pair<int,int>> adj[], int v) {
+    int ans = 0;
+    priority_queue<pd, vector<pd>, myComp> pq; //(vectex,weight)
+    vector<bool> visited(v, false);
+    
+    pq.push({0,0});
+    
+    while(!pq.empty()) {
+        int v = pq.top().first;
+        int w = pq.top().second;
+        pq.pop();
+        
+        if(visited[v]) continue;
+        
+        ans += w;
+        visited[v] = true;
+        
+        for(auto x : adj[v]) {
+            if(!visited[x.first]){
+                pq.push({x.first,x.second});
+            }
+        }
+    }
+
+    return ans;
+}
+
+
+int main() {
+    int V, E;
+    cin>>V>>E;
+
+    vector<pair<int,int>> adj[V];
+
+    int u,v,w;
+
+    for(int i = 0; i < E; i++) {
+        cin>>u>>v>>w;
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
+    }
+
+    cout<<minSpan(adj, v);
+
+}
+

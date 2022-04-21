@@ -30,6 +30,38 @@ vector<int> solve(int V, vector<vector<int>> adj[], int S) {
 }
 
 
+//using set with less space and time complexity
+vector <int> dijkstra(int v, vector<vector<int>> adj[], int src)
+    {
+        vector<int> dist(v+1, INT_MAX);
+
+        set<pair<int, int>> st; //(weight, vertex)
+    
+        st.insert({0,src});
+        dist[src] = 0;
+    
+        while(!st.empty()) {
+            pair<int, int> cur = *(st.begin());
+            int curWt = cur.first;
+            int curNode = cur.second;
+            st.erase(st.begin());
+    
+            for(auto x : adj[curNode]) {
+                if(dist[x[0]] > dist[curNode] + x[1]) {
+    
+                    if(dist[x[0]] != INT_MAX){
+                        st.erase(st.find({dist[x[0]], x[0]}));
+                    }
+    
+                    st.insert({dist[curNode] + x[1], x[0]});
+    
+                    dist[x[0]] = dist[curNode] + x[1];
+                }   
+            }
+        }
+        return dist;
+    }
+
 
 int main() {
     int vertex;
