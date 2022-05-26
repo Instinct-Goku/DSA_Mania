@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int parent[20];
+int ranked[20];
+
+int getParent(int a) {
+
+    if(parent[a] == a)
+        return a;
+
+    return parent[a] = getParent(parent[a]);
+}
+
+void combine(int a, int b) {
+    int p = getParent(a);
+    int q = getParent(b);
+
+    parent[b] = a;
+}
+
+bool areFriend(int a, int b) {
+    if(getParent(a) == getParent(b))
+        return true;
+
+    return false;
+}
+
+int main() {
+    
+    memset(ranked, 0, sizeof(ranked));
+    for(int i = 0; i < 20; i++) parent[i] = i;
+    
+    combine(1,5);
+    combine(2,4);
+    combine(7,1);
+    //combine(2,5);
+
+    cout<<areFriend(1,7)<<endl;
+    cout<<areFriend(2,7)<<endl;
+    cout<<areFriend(5,7);
+}
+
+// 0 1 2 3
+// 0 0 1 3
+

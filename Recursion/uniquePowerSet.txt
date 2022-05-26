@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+    //Time: O(2^n)
+    //space: O(2^n)*O(k) k = length of subset
+    
+    void solve(vector<int> &arr, int index, vector<int> &temp, vector<vector<int>> &ans, int n) {
+        ans.push_back(temp);
+        
+        for(int i = index; i < n; i++) {
+            if(i != index && arr[i] == arr[i-1])
+                continue;
+            
+            temp.push_back(arr[i]);
+            solve(arr, i+1,temp, ans, n);
+            temp.pop_back();
+        }
+    }
+   
+    int main() {
+        vector<int> arr = {1,2,2};
+        int n = arr.size();
+
+        sort(arr.begin(), arr.end());
+        
+        vector<int> temp;
+        vector<vector<int>> ans;
+        
+        solve(arr,0,temp,ans,n);
+        
+        for(int i = 0; i < ans.size(); i++) {
+            for(auto x: ans[i]){
+                cout<<x<<" ";
+            }
+            cout<<endl;
+        }
+    }
+
