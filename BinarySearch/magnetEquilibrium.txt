@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+double equilibrium(double l, double h, int *m, int n) {
+
+    while(l <= h) {
+        double mid = (l+h)/2;
+        double force = 0;
+        for(int i = 0; i < n; i++) {
+            force += (1/(mid - m[i]));
+        }
+
+        if(abs(force) < 0.000001)
+            return mid;
+        else if(force < 0) {
+            h = mid;
+        }
+        else {
+            l = mid;
+        }
+    }
+    return l;
+}
+
+void solve(int *m, int n) {
+
+    for(int i = 0; i < n-1; i++) {
+        cout<< setprecision(3)<<equilibrium(m[i],m[i+1],m,n)<<" ";
+    }
+}
+
+int main() {
+    int N = 4;
+    int M[] = {0, 10, 20, 30};
+
+    solve(M,N);
+}
+
+
+
+
