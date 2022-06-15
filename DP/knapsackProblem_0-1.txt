@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int knapsack(int w, int *weight, int *price, int n) {
+
+    vector<vector<int>> dp(n+1, vector<int>(w+1,0));
+        
+        for(int j = 0; j <= w; j++) {
+            if(weight[0] <= j) //filling for row = 0 i.e first item
+                dp[0][j] = price[0];
+        }
+    
+        for(int i = 0; i <= n; i++) {
+            dp[i][0] = 0; //if capacity of bag = 0, then profit = 0
+        }
+    
+        for(int i = 1; i < n; i++) {
+            for(int j = 1; j <= w; j++) {
+    
+                if(weight[i] <= j) {
+                    dp[i][j] = max(dp[i-1][j], dp[i-1][j - weight[i]] + price[i]); //pick
+                } 
+                else dp[i][j] = dp[i-1][j]; //not pick
+            }
+        }
+    
+        return dp[n-1][w];
+}
+
+
+int main() {
+    int W = 4;
+    int weight[] = {4,5,1};
+    int price[] = {1,2,3};
+    int N = sizeof(weight)/sizeof(weight[0]);
+
+    cout<<knapsack(W,weight,price,N);
+}
+
+

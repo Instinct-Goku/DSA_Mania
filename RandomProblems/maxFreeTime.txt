@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+double convert(string s) {
+    string a = s.substr(0,2);
+    string b = s.substr(3,2);
+    string p = s.substr(5);
+
+    double ans = 0;
+
+    if(p == "PM") ans += (a == "12") ? 12 : stoi(a) + 12;
+    else ans += (a == "12") ? 0 : stoi(a); 
+
+    ans += (double) stoi(b)/60;
+
+    return ans;
+}
+
+double freeTime(vector<string> &times) {
+
+    vector<pair<double,double>> v;
+
+    for(int i = 0; i < times.size(); i++) {
+        string s = times[i];
+
+        string a = s.substr(0,s.find("-"));
+        string b = s.substr(s.find("-")+1);
+
+        double x = convert(a);
+        double y = convert(b);
+
+        v.push_back({x,y});
+    }
+
+    sort(v.begin(), v.end());
+
+    double ans = -1;
+
+    for(int i = 1; i < v.size(); i++) {
+        double cur = abs(v[i-1].second - v[i].first);
+
+        ans = max(ans,cur);
+    }
+
+    return ans;
+}
+
+int main() {
+    vector<string> times = {"10:00AM-12:30PM", "02:00PM-02:45PM", "09:10AM-09:50AM"};
+
+    double ans = freeTime(times);
+    int temp = ans;
+
+    string res = to_string(temp);
+    res += ":";
+
+    ans = abs(temp - ans);
+
+    ans = ans*60;
+
+    res += to_string((int)ans);
+
+    cout<<res;
+
+}
