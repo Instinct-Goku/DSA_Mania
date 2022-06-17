@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+//BOTTOM-UP APPROACH
+int lcs_optimised(string a, string b, int n, int m) {
+    vector<int> prev(m+1,0);
+    vector<int> cur(m+1,0);
+
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j <= m; j++) {
+
+            if(a[i-1] == b[j-1])
+                cur[j] = prev[j-1]+1;
+            else
+                cur[j] = max(prev[j], cur[j-1]);
+        }
+        prev = cur;
+    }
+    return cur[m];
+}
+
+
+
+int main() {
+    string a = "abca"; 
+    string b = "acdb";
+    int n = a.length();
+    int m = b.length();
+
+    int l = lcs_optimised(a,b,n,m);
+
+    cout<<(n+m-l);
+}
+

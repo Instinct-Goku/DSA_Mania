@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+//BOTTOM-UP APPROACH
+int longestRepeatingSubseq(string a, int n) {
+
+    string b = a;
+    int m = n;
+
+    vector<int> prev(m+1,0);
+    vector<int> cur(m+1,0);
+
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j <= m; j++) {
+
+            if(a[i-1] == b[j-1] && i != j)
+                cur[j] = prev[j-1]+1;
+            else
+                cur[j] = max(prev[j], cur[j-1]);
+        }
+        prev = cur;
+    }
+    return cur[m];
+}
+
+
+
+int main() {
+    string s = "aefcagedc"; 
+    
+    int n = s.length();
+
+    cout<<longestRepeatingSubseq(s,n);
+
+    
+}
+
