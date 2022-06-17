@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+void solve(int l ,int r) {
+    int n = (r-l+1)/2;
+
+    if( r < l){
+        cout<<"NO"<<endl;
+    }
+    else{
+        cout<<"YES"<<endl;
+        int i = 0;
+       while(i < n && l <= r) {
+            cout<<l<<" "<<l+1<<endl;
+            l += 2;
+            i++;
+        } 
+    }
+    
+}
+
+int main() {
+   int l,r;
+   cin>>l>>r;
+
+   solve(l,r);
+}
+
+
+ 

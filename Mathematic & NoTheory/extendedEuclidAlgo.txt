@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+class Pair {
+public:
+    int x;
+    int y;
+    int gcd;
+
+    Pair(int x, int y, int gcd) {
+        this->x = x;
+        this->y = y;
+        this->gcd = gcd;
+    }
+};
+
+
+
+Pair *solve(int a ,int b) {
+    if(b == 0) 
+        return new Pair(1,0,a);
+
+    Pair *dash = solve(b, a%b);
+
+    return new Pair(dash->y, (dash->x-(a/b)*dash->y), dash->gcd);
+}
+
+int main() {
+   int a, b;
+   cin>>a>>b;
+
+   Pair *ans = solve(a,b);
+   cout<<ans->x<<" "<<ans->y<<endl;
+}
+
+
+ 

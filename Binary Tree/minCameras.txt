@@ -1,0 +1,43 @@
+class Solution {
+public:
+    
+    // 1 -> no need of camera, 0 -> has camera, -1 -> need of camera
+    
+    int cams = 0;
+    int dfs(TreeNode* root) {
+        if(root == NULL) return 1;
+        
+        //get data from left & right child
+        int left = dfs(root->left);
+        int right = dfs(root->right);
+        
+        //when left or right child needs camera then parent will take the camera
+        //and returns 0 i.e it has camera
+        if(left == -1 || right == -1) { //
+            cams++;
+            return 0;
+        }
+        
+        //if left or right child says i have camera then parent is also covered
+        //so it returns 1
+        if(left == 0 || right == 0){
+            return 1;
+        }
+        
+        //else the child says he needs no camera then parent says 
+        //i need someone to cover me then he says his parent to take camera 
+        //and returns -1
+        return -1;
+    }
+    
+    int minCameraCover(TreeNode* root) {
+        if(root == NULL)
+            return 0;
+        
+        int t = dfs(root);
+        
+        if(t == -1) cams++;
+        
+        return cams;
+    }
+};

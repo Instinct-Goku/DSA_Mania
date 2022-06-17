@@ -1,0 +1,25 @@
+/*
+You are given an unordered array consisting of consecutive integers  [1, 2, 3, ..., n] without any duplicates. You are allowed to swap any two elements. Find the minimum number of swaps required to sort the array in ascending order.
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int minimumSwaps(int* a) {
+    int ans = 0;
+    for(int i = 0; i < a.size(); i++) {
+        if(a[i] != i+1){
+            swap(a[i], a[a[i]-1]);
+            ans++;
+            i--;
+        }
+    }
+    return ans;
+}
+
+
+int main() {
+    int a[] = {5,3,4,1,2};
+    int n = sizeof(a)/sizeof(a[0]);
+    cout<<minimumSwaps(a,n);
+}

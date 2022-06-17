@@ -1,0 +1,42 @@
+
+    bool isPossible(vector<int>& a, int m, int mid) {
+        int balls = 1;
+        int last = a[0];
+        for(int i = 0; i < a.size(); i++){
+            if(a[i] - last >= mid){
+                balls++;
+                if(balls == m) return true;
+                last = a[i];
+            }
+        }
+        return false;
+    }
+    
+    
+    int maxDistance(vector<int>& a, int m) {
+        sort(a.begin(), a.end());
+        int s = 0;
+        int e = *max_element(a.begin(), a.end());
+        
+        int mid = (s+e)/2;
+        
+        int ans;
+        
+        while(s <= e) {
+            if(isPossible(a, m, mid)){
+                ans = mid;
+                s = mid+1;
+            }
+            else {
+                e = mid-1;
+            }
+            mid = (s+e)/2;
+        }
+        return ans;
+    }
+
+int main() {
+    vector<int> a = { 79,74,57,22};
+    int m = 4;
+    cout<<maxDistance(a,m);
+}

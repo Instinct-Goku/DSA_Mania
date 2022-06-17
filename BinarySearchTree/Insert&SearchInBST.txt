@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+class Node {
+    public:
+    int data;
+    Node *left, *right;
+    
+    Node(int data){
+        this->data = data;
+    }
+};
+
+
+
+
+	Node* insert(int data, Node* root = NULL) {
+		Node *cur = root;
+		Node *parent = NULL;
+		Node *p = new Node(data);
+
+		while(cur != NULL) {
+			parent = cur;
+
+			if(data < cur->data)
+				cur = cur->left;
+			else
+				cur = cur->right;
+		}
+
+		if(parent == NULL)
+			return p;
+
+		else if(data < parent->data)
+			parent->left = p;
+		else
+			parent->right = p;
+
+		return root;
+	}
+
+
+	void inOrder(Node *root) {
+	 if(root == NULL)
+	     return;
+	     
+	 inOrder(root->left);
+	 cout<<root->data<<" ";
+	 inOrder(root->right);
+	}
+
+    bool search(Node *root, int key) {
+        if(root == NULL)
+            return false;
+            
+        if(root->data == key)
+            return true;
+        else if(root->data > key)
+            return search(root->left, key);
+        else
+            return search(root->right, key);
+    }
+
+int main() {
+	
+	Node* root = insert(8);
+	insert(3, root);
+	insert(10, root);
+    insert(6, root);
+    insert(1, root);
+
+	inOrder(root);
+    cout<<endl;
+    if(search(root, 20))
+        cout<<"it is present"<<endl;
+    else
+        cout<<"it is not present"<<endl;
+}
