@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+//top-down dp
+bool isPossible(int i, vector<int> &v, int k, vector<vector<int>> &dp) {
+    if(k == 0)
+        return true;
+
+    if(i == 0)
+        return (v[0] == k);
+
+    if(dp[i][k] != -1)
+        return dp[i][k];
+
+    bool notTake = isPossible(i-1, v, k,dp);
+    bool take = false;
+    if(v[i] <= k) notTake = isPossible(i-1,v,k-v[i],dp);
+
+    return dp[i][k] = notTake | take;
+}
+
+//bottom-up dp
+bool isPossible(vector<int> &v, int k){
+    int n = v.size();
+
+    vector<vector<bool>> dp(n, vector<bool>(k+1,0));
+
+    for(int i = 0; i < n; i++)
+        dp[i][0] = true;
+    
+    dp[0][v[0]] = true;
+
+    for(int i = 1; i < n; i++) {
+        for(int t = 1; t <= k; t++) {
+            bool notTake = dp[i-1][t];
+            bool take = false;
+            if(v[i] <= t) {
+                take = dp[i-1][t-v[i]];
+            }
+
+            dp[i][t] = notTake | take;
+        }
+    }
+
+    return dp[n-1][k];
+}
+
+
+int main() {
+    vector<int> v = {1,4,7,4};
+    int k = 10;
+    
+    cout<<isPossible(v.size()-1,v,k);
+}
+

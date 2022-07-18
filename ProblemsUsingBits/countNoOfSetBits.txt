@@ -20,7 +20,7 @@ int countBits(int n) {
     int ans = 0;
 
     while(n) {
-        n = n&(n-1)
+        n = n&(n-1);
 	ans++;
     }
     return ans;

@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int minOperations(int i, int j, vector<int> &v, vector<vector<int>> &dp) {
+    if(i == j)
+        return 0;
+
+    if(dp[i][j] != -1)
+        return dp[i][j];
+
+    int ans = INT_MAX;
+    for(int k = i; k < j; k++) {
+        int steps = v[i-1]*v[k]*v[j] + minOperations(i,k,v,dp) + 
+                        minOperations(k+1, j,v,dp);
+        ans = min(ans,steps);
+    }
+
+    return dp[i][j] = ans;
+}
+
+int main() {
+    vector<int> v = {1, 2, 3, 4, 3};
+    int n = v.size();
+
+    vector<vector<int>> dp(n, vector<int>(n,-1));
+
+    cout<<minOperations(1,n-1,v,dp);
+}
+

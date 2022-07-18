@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<vector<int>> subsets(vector<int> &v) {
+    int n = v.size();
+    int cnt = (1<<n);
+    vector<vector<int>> ans;
+
+    for(int mask = 0; mask < cnt; mask++) {
+        vector<int> temp;
+        for(int i = 0; i < n; i++) {
+            if((mask&(1<<i))){
+                temp.push_back(v[i]);
+            }
+        }
+        ans.push_back(temp);
+    }
+    return ans;
+}
+
+
+int main() {
+    vector<int> v = {1,2,3};
+
+    vector<vector<int>> s = subsets(v);
+
+    for(int i = 0; i < s.size(); i++) {
+        for(int x : s[i])
+            cout<<x<<" ";
+        cout<<"\n";
+    }
+}
+
