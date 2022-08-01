@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> segTree;
+
+int construct(int cur, int left, int right,vector<int> &v) {
+    if(left == right) {
+        segTree[cur] =  v[left];
+        return v[left];
+    }
+
+    int mid = (left+right)/2;
+
+    segTree[cur] = construct(2*cur+1, left, mid, v) + 
+                   construct(2*cur+2, mid+1, right, v);
+
+    return segTree[cur];
+}
+
+int getSumUtil(int cur, int left, int right, int low, int high) {
+    //total overlap
+    if(left >= low && right <= high) 
+        return segTree[cur];
+    
+    //no overlap
+    if(left > high || right < low)
+        return 0;
+
+    //partial overlap
+    int mid = (left+right)/2;
+    return getSumUtil(2*cur+1, left, mid, low, high) + 
+           getSumUtil(2*cur+2, mid+1, right, low, high);
+}
+
+int getSum(int low, int high, int n) {
+    return getSumUtil(0,0,n-1,low,high);
+}
+
+void updateUtil(int cur, int left, int right, int ind, int dif) {
+    if(left > ind || right < ind)
+        return;
+
+    segTree[cur] += dif;
+    if(left != right) {
+        int mid = (left+right)/2;
+        updateUtil(2*cur+1, left,mid,ind,dif);
+        updateUtil(2*cur+2, mid+1,right, ind, dif);
+    }
+}
+
+void update(int ind, int val, vector<int> &v) {
+    int dif = val - v[ind];
+    v[ind] = val;
+    updateUtil(0,0,v.size()-1,ind,dif);
+}
+
+int main() {
+    vector<int> v = {1, 3, 5}; 
+    int n = v.size();
+    segTree.resize(4*n);
+
+    construct(0,0,n-1,v);
+
+    cout<<getSum(0,1,n)<<"\n";
+
+    update(1, 7, v);
+
+    cout<<getSum(0,1,n);
+} 
