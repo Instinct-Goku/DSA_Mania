@@ -13,7 +13,18 @@ class Node {
 };
 
 
+Node* deleteNode(Node* root, int k)
+    {
+        if(root == NULL)
+            return NULL;
 
+        if(root->data >= k)
+            return deleteNode(root->left, k);
+        else 
+            root->right = deleteNode(root->right,k);
+        
+        return root;
+    }
 
 	Node* insert(int data, Node* root = NULL) {
 		Node *cur = root;
@@ -76,4 +87,6 @@ int main() {
         cout<<"it is present"<<endl;
     else
         cout<<"it is not present"<<endl;
+    
+    deleteNode(root,6);
 }

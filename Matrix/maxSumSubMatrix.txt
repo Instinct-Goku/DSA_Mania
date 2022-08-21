@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int kadane(vector<int> &dp) {
+    int ans = dp[0];
+    int cur = dp[0];
+
+    for(int i = 1; i < dp.size(); i++) {
+        cur = max(dp[i],cur+dp[i]);
+        ans = max(ans,cur);
+    }
+    return ans;
+}
+
+int maxSumSubArr(vector<vector<int>> &v) {
+    int n = v.size(), m = v[0].size();
+    int ans = INT_MIN;
+
+    for(int c = 0; c < m; c++) {
+        vector<int> dp(n,0);
+        for(int j = c; j < m; j++) {
+            for(int i = 0; i < n; i++) {
+                dp[i] += v[i][j];
+            }
+
+            int curSum = kadane(dp);
+            ans = max(ans,curSum); 
+        }
+    }
+
+    return ans;
+}
+
+int main() {
+    vector<vector<int>> v = {{1,-1,0},
+                             {5,3,-5},
+                             {4,1,-2}};
+
+    cout<<maxSumSubArr(v);
+}
