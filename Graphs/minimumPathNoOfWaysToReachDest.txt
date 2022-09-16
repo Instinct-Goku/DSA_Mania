@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int ways(int n, int m, vector<vector<int>> &edges) {
+ vector<long long> dist(n+1,INT_MAX);
+    vector<long long> cnt(n+1,0);
+    unordered_map<long long,vector<pair<long long,long long>>> mp;
+
+    dist[0] = 0;
+    cnt[0] = 1;
+
+    for(auto x : edges) {
+        mp[x[0]].push_back({x[1],x[2]});
+        mp[x[1]].push_back({x[0],x[2]});
+    }
+
+
+    //(node,dist)
+    priority_queue<pair<long long,long long>> pq;
+    pq.push({0,0});
+
+    while(!pq.empty()) {
+        long long curNode = pq.top().second;
+        long long distUntil = (-1)*pq.top().first;
+        pq.pop();
+
+        for(auto x: mp[curNode]) {
+            long long child = x.first, w = x.second;
+
+            if((distUntil + w ) < dist[child]){
+                dist[child] = (distUntil + w);
+                pq.push({(-1)*(distUntil+w), child});
+                cnt[child] = cnt[curNode];
+            }
+            else if((distUntil + w ) == dist[child])
+                cnt[child] += cnt[curNode];
+        }
+    }
+
+    return cnt[n-1]%1000000007;
+}
+
+int main() {
+    int n=6, m=8;
+    vector<vector<int>> edges = {{0,5,8},{0,2,2},{0,1,1},{1,3,3},{1,2,3},{2,5,6},{3,4,2},{4,5,2}};
+    cout<<ways(n,m,edges);
+}
+
+
+//{{0,5,8},{0,2,2},{0,1,1},{1,3,3},{1,2,3},{2,5,6},{3,4,2},{4,5,2}};
+
+
+
+
+
+
+
+
+
