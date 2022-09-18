@@ -20,6 +20,26 @@ int rainWater(int wall[], int n){
     return res;
 }
 
+//time->O(N), space->O(1)
+int rainWater(int *wall, int n) {
+    int l = wall[0], r = wall[n-1];
+    int ans = 0;
+    int i = 0,j = n-1;
+    
+    while(i < j) {
+        l = max(l,wall[i]);
+        r = max(r,wall[j]);
+        
+        if(l <= r) {
+            ans += l-wall[i++];
+        }
+        else ans += r-wall[j--];
+    }
+    
+    return ans;
+}
+
+
 int main() {
     int wall[] = {3, 0, 2, 0, 4};
     int n = sizeof(wall)/sizeof(wall[0]);
