@@ -53,7 +53,46 @@ class LinkList {
         }
     }
 
+    node* duplicate() {
+        node* cur = head;
+        
+        //first loop to create duplicate node with next
+        while(cur != NULL) {
+            node* newnode = new node(cur->data);
+            newnode->next = cur->next;
+            cur->next = newnode;
+            cur = newnode->next;
+        }
+        
+        cur = head;
+        
+        //second loop to add random pointer
+        while(cur != NULL) {
+            if(cur->random) {
+                cur->next->random = cur->random->next;
+            }
+            cur = cur->next->next;
+        }
+        
+        cur = head;
+        node* ans = cur->next;
+        //third loop to separate LL
+        while(cur != NULL) {
+            node* temp = cur->next->next;
+            if(cur->next->next)
+                cur->next->next = cur->next->next->next;
+            cur->next = temp;
+            cur = temp;
+        }
+        
+        node* temp = ans;
+        
+        return ans;
+    }
+
 };
+
+
 
 
 int main() {
@@ -69,4 +108,6 @@ int main() {
     ll.display();
     cout<<endl;
     ll.displayRandom();
+
+    node* dup = ll.duplicate();
 }
